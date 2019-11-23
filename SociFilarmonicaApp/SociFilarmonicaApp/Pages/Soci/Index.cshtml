@@ -1,0 +1,103 @@
+﻿@page
+@model SociFilarmonicaApp.Pages.Soci.IndexModel
+
+@{
+    ViewData["Title"] = "Soci";
+}
+
+<h1>Soci della Filarmonica</h1>
+
+<p>
+    <a asp-page="Create">Aggiungi Nuovo</a>
+</p>
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Cerca per nome o cognome:
+            <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Cerca" class="btn btn-primary" /> |
+            <a asp-page="./Index">Torna alla lista completa</a>
+        </p>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.NomeSort"
+                   asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Soci[0].Nome)
+                </a>
+            </th>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.CognomeSort"
+                   asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Soci[0].Cognome)
+                </a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Soci[0].Telefono)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Soci[0].Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Soci[0].TipologiaSocioDesc)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Soci)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cognome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefono)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipologiaSocioDesc)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.Soci.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Soci.HasNextPage ? "disabled" : "";
+}
+
+<div class="btn-group">
+    <a asp-page="./Index"
+       asp-route-sortOrder="@Model.CurrentSort"
+       asp-route-pageIndex="@(Model.Soci.PageIndex - 1)"
+       asp-route-currentFilter="@Model.CurrentFilter"
+       class="btn btn-primary @prevDisabled">
+        &lt;
+    </a>
+    <div class="btn">
+        @Model.Soci.PageIndex di @Model.Soci.TotalPages (@Model.Soci.TotalElements elementi)
+    </div>
+    <a asp-page="./Index"
+       asp-route-sortOrder="@Model.CurrentSort"
+       asp-route-pageIndex="@(Model.Soci.PageIndex + 1)"
+       asp-route-currentFilter="@Model.CurrentFilter"
+       class="btn btn-primary @nextDisabled">
+        &gt;
+    </a>
+</div>

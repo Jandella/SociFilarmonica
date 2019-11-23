@@ -1,0 +1,25 @@
+﻿@page
+@model SociFilarmonicaApp.Pages.RiepilogoModel
+@{
+    ViewData["Title"] = "Riepilogo soci";
+}
+
+<h1>Riepilogo soci</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tipologia socio</th>
+            <th>Quantità</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.SociPerTipologia)
+        {
+            <tr>
+                <td>@item.TipoSocio</td>
+                <td>@item.NumSoci</td>
+            </tr>
+        }
+    </tbody>
+</table>
