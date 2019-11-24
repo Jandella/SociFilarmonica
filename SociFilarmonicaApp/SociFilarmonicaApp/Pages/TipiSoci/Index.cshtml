@@ -1,0 +1,36 @@
+﻿@page
+@model SociFilarmonicaApp.Pages.TipiSoci.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Aggiungi Nuovo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TipologiaSocio[0].Descrizione)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.TipologiaSocio) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descrizione)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Modifica</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Dettagli</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Cancella</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,34 @@
+﻿@page
+@model SociFilarmonicaApp.Pages.TipiSoci.CreateModel
+
+@{
+    ViewData["Title"] = "Aggiungi";
+}
+
+<h1>Aggiungi</h1>
+
+<h4>Tipologia Socio</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TipologiaSocio.Descrizione" class="control-label"></label>
+                <input asp-for="TipologiaSocio.Descrizione" class="form-control" />
+                <span asp-validation-for="TipologiaSocio.Descrizione" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Aggiungi" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Torna alla lista</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

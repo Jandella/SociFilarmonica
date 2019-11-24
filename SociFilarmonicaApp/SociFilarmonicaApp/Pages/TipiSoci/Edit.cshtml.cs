@@ -6,11 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using SociFilarmonicaApp.Data;
 using SociFilarmonicaApp.Models;
 
-namespace SociFilarmonicaApp.Pages.Soci
+namespace SociFilarmonicaApp.Pages.TipiSoci
 {
-    public class EditModel : TipologiePageModel
+    public class EditModel : PageModel
     {
         private readonly SociFilarmonicaApp.Data.FilarmonicaContext _context;
 
@@ -20,7 +21,7 @@ namespace SociFilarmonicaApp.Pages.Soci
         }
 
         [BindProperty]
-        public Socio Socio { get; set; }
+        public TipologiaSocio TipologiaSocio { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,13 +30,12 @@ namespace SociFilarmonicaApp.Pages.Soci
                 return NotFound();
             }
 
-            Socio = await _context.Soci.FirstOrDefaultAsync(m => m.ID == id);
+            TipologiaSocio = await _context.TipologiaSoci.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (Socio == null)
+            if (TipologiaSocio == null)
             {
                 return NotFound();
             }
-            PopulateTipologieDropDownList(_context);
             return Page();
         }
 
@@ -47,24 +47,36 @@ namespace SociFilarmonicaApp.Pages.Soci
             {
                 return Page();
             }
+            var tipologiaDaAggiornare = await _context.TipologiaSoci.FindAsync(id);
+            if(await TryUpdateModelAsync(
+                tipologiaDaAggiornare, 
+                "TipologiaSocio", 
+                t => t.Descrizione))
+            {
+                await _context.SaveChangesAsync();
+            }
 
-            var socioDaAggiornare = await _context.Soci.FindAsync(id);
+            _context.Attach(TipologiaSocio).State = EntityState.Modified;
 
-            if (await TryUpdateModelAsync(
-                socioDaAggiornare,
-                "socio",
-                s => s.Nome, s => s.Cognome, s => s.Telefono, s => s.TipologiaSocioID))
+            try
             {
                 await _context.SaveChangesAsync();
                 return RedirectToPage("./Index");
             }
-            PopulateTipologieDropDownList(_context, Socio.TipologiaSocioID);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!TipologiaSocioExists(TipologiaSocio.ID))
+                {
+                    return NotFound();
+                }
+            }
+
             return Page();
         }
 
-        private bool SocioExists(int id)
+        private bool TipologiaSocioExists(int id)
         {
-            return _context.Soci.Any(e => e.ID == id);
+            return _context.TipologiaSoci.Any(e => e.ID == id);
         }
     }
 }
