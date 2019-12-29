@@ -10,6 +10,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using SociFilarmonicaApp.Models;
 using SociFilarmonicaApp.Data;
+using ElectronNET.API;
+using ElectronNET.API.Entities;
 
 namespace SociFilarmonicaApp
 {
@@ -52,6 +54,20 @@ namespace SociFilarmonicaApp
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+            });
+            
+            // Open the Electron-Window here
+            Task.Run(async () => await ElectronBootstrap());
+        }
+
+        public async Task ElectronBootstrap()
+        {
+            var browserWindow = await Electron.WindowManager.CreateWindowAsync(new BrowserWindowOptions
+            {
+                Width = 1152,
+                Height = 864,
+                Show = true,
+                Title = "Soci Filarmonica"
             });
         }
     }
