@@ -1,0 +1,22 @@
+﻿@page
+@model SociFilarmonicaApp.ImpostazioniModel
+@{
+    ViewData["Title"] = "Impostazioni";
+}
+
+<h1>Impostazioni</h1>
+
+<h4>Esporta dati</h4>
+
+<p>Esporta i dati in formato excel.</p>
+<button id="export-excel" class="btn btn-primary">Esporta</button>
+
+<script>
+            (function(){
+                const { ipcRenderer } = require("electron");
+                document.getElementById("export-excel").addEventListener("click", () => {
+                    ipcRenderer.send("export-excel");
+                });
+            }());
+</script>
+
