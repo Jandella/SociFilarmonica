@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SociFilarmonicaApp.Data;
@@ -10,46 +9,72 @@ using SociFilarmonicaApp.Data;
 namespace SociFilarmonicaApp.Migrations
 {
     [DbContext(typeof(FilarmonicaContext))]
-    [Migration("20191123223448_InitialCreate")]
+    [Migration("20191229115354_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.0.1")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "3.1.0");
+
+            modelBuilder.Entity("SociFilarmonicaApp.Models.InfoAuto", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Carburante")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("RimborsoKm")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TipoAuto")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("InfoAuto");
+                });
 
             modelBuilder.Entity("SociFilarmonicaApp.Models.Socio", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Cognome")
                         .IsRequired()
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(100);
 
+                    b.Property<int?>("DatiAutoID")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(200)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(200);
+
+                    b.Property<string>("Indirizzo")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(500);
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(100);
 
                     b.Property<string>("Telefono")
-                        .HasColumnType("nvarchar(50)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(50);
 
                     b.Property<int?>("TipologiaSocioID")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("DatiAutoID");
 
                     b.HasIndex("TipologiaSocioID");
 
@@ -60,12 +85,11 @@ namespace SociFilarmonicaApp.Migrations
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Descrizione")
                         .IsRequired()
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(100);
 
                     b.HasKey("ID");
@@ -75,6 +99,10 @@ namespace SociFilarmonicaApp.Migrations
 
             modelBuilder.Entity("SociFilarmonicaApp.Models.Socio", b =>
                 {
+                    b.HasOne("SociFilarmonicaApp.Models.InfoAuto", "DatiAuto")
+                        .WithMany()
+                        .HasForeignKey("DatiAutoID");
+
                     b.HasOne("SociFilarmonicaApp.Models.TipologiaSocio", "Tipologia")
                         .WithMany("SociDiCategoria")
                         .HasForeignKey("TipologiaSocioID");

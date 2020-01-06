@@ -1,0 +1,45 @@
+﻿@page
+@model SociFilarmonicaApp.Pages.DatiAuto.EditModel
+
+@{
+    ViewData["Title"] = "Modifica";
+}
+
+<h1>Modifica</h1>
+
+<h4>Tipologia auto</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="InfoAuto.ID" />
+            <div class="form-group">
+                <label asp-for="InfoAuto.TipoAuto" class="control-label"></label>
+                <input asp-for="InfoAuto.TipoAuto" class="form-control" />
+                <span asp-validation-for="InfoAuto.TipoAuto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InfoAuto.Carburante" class="control-label"></label>
+                <input asp-for="InfoAuto.Carburante" class="form-control" />
+                <span asp-validation-for="InfoAuto.Carburante" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InfoAuto.RimborsoKm" class="control-label"></label>
+                <input asp-for="InfoAuto.RimborsoKm" class="form-control" />
+                <span asp-validation-for="InfoAuto.RimborsoKm" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Salva" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Torna alla lista</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

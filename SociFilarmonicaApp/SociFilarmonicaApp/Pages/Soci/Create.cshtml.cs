@@ -23,7 +23,7 @@ namespace SociFilarmonicaApp.Pages.Soci
 
         public IActionResult OnGet()
         {
-            PopulateTipologieDropDownList(_context);
+            PopulateDropDownLists(_context);
             return Page();
         }
 
@@ -55,7 +55,7 @@ namespace SociFilarmonicaApp.Pages.Soci
             catch (DbUpdateException ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex);
-                PopulateTipologieDropDownList(_context, Socio.TipologiaSocioID);
+                PopulateDropDownLists(_context, Socio.TipologiaSocioID);
                 return Page();
             }
         }

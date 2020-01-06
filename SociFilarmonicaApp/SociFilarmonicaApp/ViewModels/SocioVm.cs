@@ -17,5 +17,8 @@ namespace SociFilarmonicaApp.ViewModels
         public int? TipologiaSocioID { get; set; }
         [Display(Name = "Tipologia Socio")]
         public string TipologiaSocioDesc { get; set; }
+        public int? TipoAutoID { get; set; }
+        [Display(Name = "Tipologia Auto")]
+        public string TipoAutoDesc { get; set; }
     }
 }

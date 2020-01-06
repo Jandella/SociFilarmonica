@@ -9,6 +9,10 @@
     <Compile Remove="Migrations\20191123222731_ColonneRidotte.Designer.cs" />
     <Compile Remove="Migrations\20191123222835_ColonneRidotte.cs" />
     <Compile Remove="Migrations\20191123222835_ColonneRidotte.Designer.cs" />
+    <Compile Remove="Migrations\20191123223448_InitialCreate.cs" />
+    <Compile Remove="Migrations\20191123223448_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20191229113736_InitialCreate.cs" />
+    <Compile Remove="Migrations\20191229113736_InitialCreate.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ElectronNET.API" Version="7.30.2" />
@@ -25,7 +29,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="electron.manifest.json">

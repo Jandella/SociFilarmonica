@@ -7,11 +7,26 @@ namespace SociFilarmonicaApp.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "InfoAuto",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    TipoAuto = table.Column<string>(nullable: true),
+                    Carburante = table.Column<string>(nullable: true),
+                    RimborsoKm = table.Column<decimal>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InfoAuto", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TipologiaSocio",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Descrizione = table.Column<string>(maxLength: 100, nullable: false)
                 },
                 constraints: table =>
@@ -24,16 +39,24 @@ namespace SociFilarmonicaApp.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Nome = table.Column<string>(maxLength: 100, nullable: false),
                     Cognome = table.Column<string>(maxLength: 100, nullable: false),
                     Telefono = table.Column<string>(maxLength: 50, nullable: true),
                     Email = table.Column<string>(maxLength: 200, nullable: true),
+                    Indirizzo = table.Column<string>(maxLength: 500, nullable: true),
+                    DatiAutoID = table.Column<int>(nullable: true),
                     TipologiaSocioID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Socio", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Socio_InfoAuto_DatiAutoID",
+                        column: x => x.DatiAutoID,
+                        principalTable: "InfoAuto",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Socio_TipologiaSocio_TipologiaSocioID",
                         column: x => x.TipologiaSocioID,
@@ -41,6 +64,11 @@ namespace SociFilarmonicaApp.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Socio_DatiAutoID",
+                table: "Socio",
+                column: "DatiAutoID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Socio_TipologiaSocioID",
@@ -52,6 +80,9 @@ namespace SociFilarmonicaApp.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Socio");
+
+            migrationBuilder.DropTable(
+                name: "InfoAuto");
 
             migrationBuilder.DropTable(
                 name: "TipologiaSocio");

@@ -28,23 +28,31 @@ namespace SociFilarmonicaApp.Pages.Soci
                 return NotFound();
             }
 
-            Socio = await _context.Soci.
-                Select(x => new SocioVm
-                {
-                    Cognome = x.Cognome,
-                    Email = x.Email,
-                    ID = x.ID,
-                    Nome = x.Nome,
-                    Telefono = x.Telefono,
-                    TipologiaSocioID = x.TipologiaSocioID,
-                    TipologiaSocioDesc = x.Tipologia.Descrizione
-                })
+            var dbSocio = await _context.Soci
+                .Include(x => x.Tipologia)
+                .Include(x => x.DatiAuto)
                 .FirstOrDefaultAsync(m => m.ID == id);
 
-            if (Socio == null)
-            {
+            if (dbSocio == null)
                 return NotFound();
+
+            Socio = new SocioVm
+            {
+                Cognome = dbSocio.Cognome,
+                Email = dbSocio.Email,
+                ID = dbSocio.ID,
+                Nome = dbSocio.Nome,
+                Telefono = dbSocio.Telefono,
+                TipologiaSocioID = dbSocio.TipologiaSocioID,
+                TipologiaSocioDesc = dbSocio.Tipologia.Descrizione,
+            };
+
+            if(dbSocio.DatiAuto != null)
+            {
+                Socio.TipoAutoID = dbSocio.DatiAutoID;
+                Socio.TipoAutoDesc = $"{dbSocio.DatiAuto.TipoAuto} - {dbSocio.DatiAuto.Carburante}";
             }
+            
             return Page();
         }
     }

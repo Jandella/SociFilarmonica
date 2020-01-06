@@ -21,8 +21,12 @@ namespace SociFilarmonicaApp.Models
         [StringLength(200)]
         [EmailAddress]
         public string Email { get; set; }
+        [StringLength(500)]
+        public string Indirizzo { get; set; }
+        public int? DatiAutoID { get; set; }
         public int? TipologiaSocioID { get; set; }
 
         public TipologiaSocio Tipologia { get; set; }
+        public InfoAuto DatiAuto { get; set; }
     }
 }

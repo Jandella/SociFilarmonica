@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SociFilarmonicaApp.Models;
+using SociFilarmonicaApp.ViewModels;
 
 namespace SociFilarmonicaApp.Pages.Soci
 {
@@ -20,7 +21,7 @@ namespace SociFilarmonicaApp.Pages.Soci
         }
 
         [BindProperty]
-        public Socio Socio { get; set; }
+        public SocioVm Socio { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,13 +30,25 @@ namespace SociFilarmonicaApp.Pages.Soci
                 return NotFound();
             }
 
-            Socio = await _context.Soci.FirstOrDefaultAsync(m => m.ID == id);
+            var dbSocio = await _context.Soci.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (Socio == null)
+            if (dbSocio == null)
             {
                 return NotFound();
             }
-            PopulateTipologieDropDownList(_context);
+
+            Socio = new SocioVm
+            {
+                Cognome = dbSocio.Cognome,
+                Email = dbSocio.Email,
+                ID = dbSocio.ID,
+                Nome = dbSocio.Nome,
+                Telefono = dbSocio.Telefono,
+                TipologiaSocioID = dbSocio.TipologiaSocioID,
+                TipoAutoID = dbSocio.DatiAutoID
+            };
+
+            PopulateDropDownLists(_context);
             return Page();
         }
 
@@ -58,7 +71,7 @@ namespace SociFilarmonicaApp.Pages.Soci
                 await _context.SaveChangesAsync();
                 return RedirectToPage("./Index");
             }
-            PopulateTipologieDropDownList(_context, Socio.TipologiaSocioID);
+            PopulateDropDownLists(_context, Socio.TipologiaSocioID, Socio.TipoAutoID);
             return Page();
         }
 

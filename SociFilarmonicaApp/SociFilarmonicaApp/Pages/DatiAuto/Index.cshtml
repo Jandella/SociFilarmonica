@@ -1,0 +1,48 @@
+﻿@page
+@model SociFilarmonicaApp.Pages.DatiAuto.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Lista tipologie auto</h1>
+
+<p>
+    <a asp-page="Create">Aggiungi nuovo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.InfoAuto[0].TipoAuto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InfoAuto[0].Carburante)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InfoAuto[0].RimborsoKm)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.InfoAuto) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoAuto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Carburante)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RimborsoKm)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Modifica</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Dettagli</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Cancella</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

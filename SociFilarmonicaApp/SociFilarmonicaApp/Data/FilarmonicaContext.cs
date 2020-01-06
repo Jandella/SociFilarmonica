@@ -16,12 +16,14 @@ namespace SociFilarmonicaApp.Data
 
         public DbSet<Socio> Soci { get; set; }
         public DbSet<TipologiaSocio> TipologiaSoci { get; set; }
+        public DbSet<InfoAuto> InfoAutomobili { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Socio>().ToTable("Socio");
             modelBuilder.Entity<TipologiaSocio>().ToTable("TipologiaSocio");
+            modelBuilder.Entity<InfoAuto>().ToTable("InfoAuto");
         }
     }
 }

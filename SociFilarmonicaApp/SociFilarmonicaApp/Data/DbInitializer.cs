@@ -31,6 +31,19 @@ namespace SociFilarmonicaApp.Data
             }
             context.SaveChanges();
 
+            var auto = new InfoAuto[]
+            {
+                new InfoAuto {TipoAuto = "Sotto x ccc", Carburante = "Benzina", RimborsoKm = 0.47m }
+                , new InfoAuto {TipoAuto = "Sotto x ccc", Carburante = "Diesel", RimborsoKm = 0.47m }
+                , new InfoAuto {TipoAuto = "Tra x ccc e y ccc", Carburante = "Benzina", RimborsoKm = 0.47m }
+            };
+
+            foreach (var item in auto)
+            {
+                context.InfoAutomobili.Add(item);
+            };
+            context.SaveChanges();
+#if DEBUG
             var soci = new Socio[]
             {
                 new Socio { Nome = "Mario", Cognome = "Rossi", Telefono = "001 1234", Email = "example@example.com", TipologiaSocioID = 1 }
@@ -45,7 +58,7 @@ namespace SociFilarmonicaApp.Data
                 context.Soci.Add(item);
             }
             context.SaveChanges();
-
+#endif
         }
     }
 }

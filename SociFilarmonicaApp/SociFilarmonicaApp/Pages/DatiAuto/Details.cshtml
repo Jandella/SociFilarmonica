@@ -1,0 +1,43 @@
+﻿@page
+@model SociFilarmonicaApp.Pages.DatiAuto.DetailsModel
+
+@{
+    ViewData["Title"] = "Dettagli";
+}
+
+<h1>Dettagli</h1>
+
+<div>
+    <h4>Tipologia auto</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.InfoAuto.TipoAuto)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.InfoAuto.TipoAuto)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.InfoAuto.Carburante)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.InfoAuto.Carburante)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.InfoAuto.RimborsoKm)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.InfoAuto.RimborsoKm)
+        </dd>
+        <dt class="col-sm-2">
+            Soci che usano questa tipologia di auto
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.InfoAuto.SociConQuestaAuto)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.InfoAuto.ID">Modifica</a> |
+    <a asp-page="./Index">Torna alla lista</a>
+</div>
