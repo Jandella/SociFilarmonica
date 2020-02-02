@@ -15,6 +15,9 @@
     <Compile Remove="Migrations\20191229113736_InitialCreate.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Data\SF.db" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="ElectronNET.API" Version="7.30.2" />
     <PackageReference Include="EPPlus" Version="4.5.3.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.0">

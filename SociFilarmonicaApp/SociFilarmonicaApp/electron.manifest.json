@@ -3,11 +3,11 @@
   "splashscreen": {
     "imageFile": ""
   },
-  "singleInstance": false,
+  "singleInstance": true,
   "build": {
     "appId": "com.SociFilarmonicaApp.app",
     "productName": "SociFilarmonicaApp",
-    "copyright": "Copyright © 2019",
+    "copyright": "Copyright © 2020",
     "buildVersion": "1.0.0",
     "compression": "maximum",
     "directories": {
