@@ -36,34 +36,103 @@ namespace SociFilarmonicaApp.Migrations
                     b.ToTable("InfoAuto");
                 });
 
+            modelBuilder.Entity("SociFilarmonicaApp.Models.Quote", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Anno")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("QuotaSociale")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("SocioID")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("SocioID");
+
+                    b.ToTable("Quote");
+                });
+
             modelBuilder.Entity("SociFilarmonicaApp.Models.Socio", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<bool>("Annullato")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Cap")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Citta")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("CodiceFiscale")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(50);
+
                     b.Property<string>("Cognome")
                         .IsRequired()
                         .HasColumnType("TEXT")
                         .HasMaxLength(100);
 
+                    b.Property<DateTime?>("DataNascita")
+                        .HasColumnType("TEXT");
+
                     b.Property<int?>("DatiAutoID")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("DescrizioneMacchina")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(100);
 
                     b.Property<string>("Email")
                         .HasColumnType("TEXT")
                         .HasMaxLength(200);
 
+                    b.Property<string>("Email2")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Indirizzo")
                         .HasColumnType("TEXT")
-                        .HasMaxLength(500);
+                        .HasMaxLength(100);
+
+                    b.Property<string>("LuogoNascita")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(100);
 
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("TEXT")
                         .HasMaxLength(100);
 
+                    b.Property<int>("NumeroSocio")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("NumeroTesseraAmbima")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(50);
+
+                    b.Property<bool>("PrivacyFirmata")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("TargaMacchina")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(100);
+
                     b.Property<string>("Telefono")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Telefono2")
                         .HasColumnType("TEXT")
                         .HasMaxLength(50);
 
@@ -93,6 +162,15 @@ namespace SociFilarmonicaApp.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("TipologiaSocio");
+                });
+
+            modelBuilder.Entity("SociFilarmonicaApp.Models.Quote", b =>
+                {
+                    b.HasOne("SociFilarmonicaApp.Models.Socio", "Socio")
+                        .WithMany("RegistroQuote")
+                        .HasForeignKey("SocioID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SociFilarmonicaApp.Models.Socio", b =>

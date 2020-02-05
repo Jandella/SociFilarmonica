@@ -43,7 +43,7 @@ namespace SociFilarmonicaApp.Pages.Soci
 
             CurrentFilter = searchString;
 
-            IQueryable<Socio> sociIQ = _context.Soci.AsQueryable();
+            IQueryable<Socio> sociIQ = _context.Soci.Where(s => !s.Annullato);
 
             if (!string.IsNullOrEmpty(searchString))
             {

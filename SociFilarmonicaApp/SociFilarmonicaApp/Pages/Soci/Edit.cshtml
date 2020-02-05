@@ -9,45 +9,162 @@
 
 <h4>Socio</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Socio.ID" />
-            <div class="form-group">
-                <label asp-for="Socio.Nome" class="control-label"></label>
-                <input asp-for="Socio.Nome" class="form-control" />
-                <span asp-validation-for="Socio.Nome" class="text-danger"></span>
+<div>
+    <a asp-page="./Index">Torna alla lista</a>
+</div>
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Socio.ID" />
+    <div class="form-group row">
+        <label asp-for="Socio.NumeroSocio" class="col-form-label col-md-1"></label>
+        <div class="col-md-2">
+            <input asp-for="Socio.NumeroSocio" class="form-control" />
+            <span asp-validation-for="Socio.NumeroSocio" class="text-danger"></span>
+        </div>
+        <label asp-for="Socio.TipologiaSocioID" class="col-form-label col-md-3"></label>
+        <div class="col-md-3">
+            <select asp-for="Socio.TipologiaSocioID" class="form-control"
+                    asp-items="@Model.TipologieSL">
+                <option value="">-- Seleziona una tipologia --</option>
+            </select>
+            <span asp-validation-for="Socio.TipologiaSocioID" class="text-danger"></span>
+        </div>
+    </div>
+    
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Dati anagrafici</h5>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label asp-for="Socio.Nome" class="control-label"></label>
+                        <input asp-for="Socio.Nome" class="form-control" />
+                        <span asp-validation-for="Socio.Nome" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label asp-for="Socio.Cognome" class="control-label"></label>
+                        <input asp-for="Socio.Cognome" class="form-control" />
+                        <span asp-validation-for="Socio.Cognome" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label asp-for="Socio.LuogoNascita" class="control-label"></label>
+                        <input asp-for="Socio.LuogoNascita" class="form-control" />
+                        <span asp-validation-for="Socio.LuogoNascita" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label asp-for="Socio.DataNascita" class="control-label"></label>
+                        <input asp-for="Socio.DataNascita" class="form-control" />
+                        <span asp-validation-for="Socio.DataNascita" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Socio.Cognome" class="control-label"></label>
-                <input asp-for="Socio.Cognome" class="form-control" />
-                <span asp-validation-for="Socio.Cognome" class="text-danger"></span>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label asp-for="Socio.CodiceFiscale" class="control-label"></label>
+                        <input asp-for="Socio.CodiceFiscale" class="form-control" />
+                        <span asp-validation-for="Socio.CodiceFiscale" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Socio.Citta" class="control-label"></label>
+                <input asp-for="Socio.Citta" class="form-control" />
+                <span asp-validation-for="Socio.Citta" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="Socio.Indirizzo" class="control-label"></label>
+                <input asp-for="Socio.Indirizzo" class="form-control" placeholder="Via/Piazza.." />
+                <span asp-validation-for="Socio.Indirizzo" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="Socio.Cap" class="control-label"></label>
+                <input asp-for="Socio.Cap" class="form-control" />
+                <span asp-validation-for="Socio.Cap" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
             <div class="form-group">
                 <label asp-for="Socio.Telefono" class="control-label"></label>
                 <input asp-for="Socio.Telefono" class="form-control" />
                 <span asp-validation-for="Socio.Telefono" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="Socio.Telefono2" class="control-label"></label>
+                <input asp-for="Socio.Telefono2" class="form-control" />
+                <span asp-validation-for="Socio.Telefono2" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-3">
             <div class="form-group">
                 <label asp-for="Socio.Email" class="control-label"></label>
                 <input asp-for="Socio.Email" class="form-control" />
                 <span asp-validation-for="Socio.Email" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-3">
             <div class="form-group">
-                <label asp-for="Socio.TipologiaSocioID" class="control-label"></label>
-                <select asp-for="Socio.TipologiaSocioID" class="form-control"
-                        asp-items="@Model.TipologieSL">
-                    <option value="">-- Seleziona una tipologia --</option>
-                </select>
+                <label asp-for="Socio.Email2" class="control-label"></label>
+                <input asp-for="Socio.Email2" class="form-control" />
+                <span asp-validation-for="Socio.Email2" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Salva" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
+    
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Dati automobile</h5>
+            <h6 class="card-subtitle">Per calcolo rimborsi</h6>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Socio.TipoAutoID" class="control-label"></label>
+                        <select asp-for="Socio.TipoAutoID" class="form-control"
+                                asp-items="@Model.AutoSL">
+                            <option value="">-- Seleziona una fascia --</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label asp-for="Socio.DescrizioneMacchina" class="control-label"></label>
+                        <input asp-for="Socio.DescrizioneMacchina" class="form-control" />
+                        <span asp-validation-for="Socio.DescrizioneMacchina" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label asp-for="Socio.TargaMacchina" class="control-label"></label>
+                        <input asp-for="Socio.TargaMacchina" class="form-control" />
+                        <span asp-validation-for="Socio.TargaMacchina" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Salva" class="btn btn-primary" />
+    </div>
+</form>
 <div>
     <a asp-page="./Index">Torna alla lista</a>
 </div>

@@ -60,10 +60,11 @@ namespace SociFilarmonicaApp.Pages.Soci
 
             try
             {
-                _context.Soci.Remove(Socio);
-                await _context.SaveChangesAsync();
-
-
+                Socio.Annullato = true;
+                if(await TryUpdateModelAsync(Socio, "socio", s => s.Annullato))
+                {
+                    await _context.SaveChangesAsync();
+                }
                 return RedirectToPage("./Index");
             }
             catch (DbUpdateException ex)

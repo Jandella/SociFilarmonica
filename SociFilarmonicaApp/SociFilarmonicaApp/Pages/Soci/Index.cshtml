@@ -8,7 +8,7 @@
 <h1>Soci della Filarmonica</h1>
 
 <p>
-    <a asp-page="Create">Aggiungi Nuovo</a>
+    <a asp-page="Create"><i class="fa fa-user-plus"></i> Aggiungi Nuovo</a>
 </p>
 <form asp-page="./Index" method="get">
     <div class="form-actions no-color">
@@ -25,15 +25,34 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Soci[0].NumeroSocio)
+            </th>
+            <th>
                 <a asp-page="./Index" asp-route-sortOrder="@Model.NomeSort"
                    asp-route-currentFilter="@Model.CurrentFilter">
                     @Html.DisplayNameFor(model => model.Soci[0].Nome)
+                    @if ("Nome_desc".Equals(Model.CurrentSort, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        <i class="fa fa-caret-down"></i>
+                    }
+                    else if(string.IsNullOrWhiteSpace(Model.CurrentSort))
+                    {
+                        <i class="fa fa-caret-up"></i>
+                    }
                 </a>
             </th>
             <th>
                 <a asp-page="./Index" asp-route-sortOrder="@Model.CognomeSort"
                    asp-route-currentFilter="@Model.CurrentFilter">
                     @Html.DisplayNameFor(model => model.Soci[0].Cognome)
+                    @if ("Cognome_desc".Equals(Model.CurrentSort, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        <i class="fa fa-caret-down"></i>
+                    }
+                    else if ("Cognome".Equals(Model.CurrentSort, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        <i class="fa fa-caret-up"></i>
+                    }
                 </a>
             </th>
             <th>
@@ -52,6 +71,9 @@
         @foreach (var item in Model.Soci)
         {
             <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumeroSocio)
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Nome)
                 </td>

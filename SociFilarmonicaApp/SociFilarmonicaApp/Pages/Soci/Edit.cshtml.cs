@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using SociFilarmonicaApp.Mappings;
 using SociFilarmonicaApp.Models;
 using SociFilarmonicaApp.ViewModels;
 
@@ -37,16 +38,7 @@ namespace SociFilarmonicaApp.Pages.Soci
                 return NotFound();
             }
 
-            Socio = new SocioVm
-            {
-                Cognome = dbSocio.Cognome,
-                Email = dbSocio.Email,
-                ID = dbSocio.ID,
-                Nome = dbSocio.Nome,
-                Telefono = dbSocio.Telefono,
-                TipologiaSocioID = dbSocio.TipologiaSocioID,
-                TipoAutoID = dbSocio.DatiAutoID
-            };
+            Socio = dbSocio.ToSocioVm();
 
             PopulateDropDownLists(_context);
             return Page();

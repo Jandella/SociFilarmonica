@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SociFilarmonicaApp.Migrations
 {
@@ -40,13 +41,26 @@ namespace SociFilarmonicaApp.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    NumeroSocio = table.Column<int>(nullable: false),
                     Nome = table.Column<string>(maxLength: 100, nullable: false),
                     Cognome = table.Column<string>(maxLength: 100, nullable: false),
+                    CodiceFiscale = table.Column<string>(maxLength: 50, nullable: true),
                     Telefono = table.Column<string>(maxLength: 50, nullable: true),
+                    Telefono2 = table.Column<string>(maxLength: 50, nullable: true),
                     Email = table.Column<string>(maxLength: 200, nullable: true),
-                    Indirizzo = table.Column<string>(maxLength: 500, nullable: true),
+                    Email2 = table.Column<string>(nullable: true),
+                    Indirizzo = table.Column<string>(maxLength: 100, nullable: true),
+                    Cap = table.Column<string>(maxLength: 50, nullable: true),
+                    Citta = table.Column<string>(maxLength: 100, nullable: true),
+                    NumeroTesseraAmbima = table.Column<string>(maxLength: 50, nullable: true),
+                    TargaMacchina = table.Column<string>(maxLength: 100, nullable: true),
+                    DescrizioneMacchina = table.Column<string>(maxLength: 100, nullable: true),
                     DatiAutoID = table.Column<int>(nullable: true),
-                    TipologiaSocioID = table.Column<int>(nullable: true)
+                    TipologiaSocioID = table.Column<int>(nullable: true),
+                    PrivacyFirmata = table.Column<bool>(nullable: false),
+                    Annullato = table.Column<bool>(nullable: false),
+                    DataNascita = table.Column<DateTime>(nullable: true),
+                    LuogoNascita = table.Column<string>(maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -65,6 +79,32 @@ namespace SociFilarmonicaApp.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Quote",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    SocioID = table.Column<int>(nullable: false),
+                    QuotaSociale = table.Column<decimal>(nullable: false),
+                    Anno = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Quote", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Quote_Socio_SocioID",
+                        column: x => x.SocioID,
+                        principalTable: "Socio",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Quote_SocioID",
+                table: "Quote",
+                column: "SocioID");
+
             migrationBuilder.CreateIndex(
                 name: "IX_Socio_DatiAutoID",
                 table: "Socio",
@@ -78,6 +118,9 @@ namespace SociFilarmonicaApp.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Quote");
+
             migrationBuilder.DropTable(
                 name: "Socio");
 

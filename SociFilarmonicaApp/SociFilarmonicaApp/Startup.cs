@@ -27,7 +27,10 @@ namespace SociFilarmonicaApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            services.AddRazorPages().AddRazorPagesOptions(options => 
+            {
+                options.Conventions.AddPageRoute("/Soci/Index", "/");
+            });
 
             services.AddDbContext<FilarmonicaContext>(options =>
                     options.UseSqlite(Configuration.GetConnectionString("FilarmonicaContext")));
@@ -55,7 +58,8 @@ namespace SociFilarmonicaApp
             {
                 endpoints.MapRazorPages();
             });
-            
+
+
             // Open the Electron-Window here
             Task.Run(async () => await ElectronBootstrap());
         }

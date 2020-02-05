@@ -56,5 +56,8 @@ namespace SociFilarmonicaApp.Models
 
         public bool PrivacyFirmata { get; set; }
         public bool Annullato { get; set; }
+        public DateTime? DataNascita { get; set; }
+        [StringLength(100)]
+        public string LuogoNascita { get; set; }
     }
 }
