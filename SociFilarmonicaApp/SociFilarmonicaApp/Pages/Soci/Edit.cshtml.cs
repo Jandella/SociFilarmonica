@@ -50,21 +50,16 @@ namespace SociFilarmonicaApp.Pages.Soci
         {
             if (!ModelState.IsValid)
             {
+                PopulateDropDownLists(_context, Socio.TipologiaSocioID, Socio.TipoAutoID);
                 return Page();
             }
 
             var socioDaAggiornare = await _context.Soci.FindAsync(id);
 
-            if (await TryUpdateModelAsync(
-                socioDaAggiornare,
-                "socio",
-                s => s.Nome, s => s.Cognome, s => s.Telefono, s => s.TipologiaSocioID))
-            {
-                await _context.SaveChangesAsync();
-                return RedirectToPage("./Index");
-            }
-            PopulateDropDownLists(_context, Socio.TipologiaSocioID, Socio.TipoAutoID);
-            return Page();
+            _context.Entry(socioDaAggiornare).CurrentValues.SetValues(Socio);
+
+            await _context.SaveChangesAsync();
+            return RedirectToPage("./Index");
         }
 
         private bool SocioExists(int id)

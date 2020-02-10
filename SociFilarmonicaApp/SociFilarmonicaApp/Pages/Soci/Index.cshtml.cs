@@ -47,8 +47,8 @@ namespace SociFilarmonicaApp.Pages.Soci
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                sociIQ = sociIQ.Where(x => x.Nome.Contains(searchString) 
-                || x.Cognome.Contains(searchString));
+                sociIQ = sociIQ.Where(x => x.Nome.Contains(searchString, StringComparison.InvariantCultureIgnoreCase) 
+                || x.Cognome.Contains(searchString, StringComparison.InvariantCultureIgnoreCase));
             }
 
             if (string.IsNullOrEmpty(sortOrder))
@@ -75,9 +75,10 @@ namespace SociFilarmonicaApp.Pages.Soci
                 sociIQ = sociIQ.OrderBy(e => EF.Property<object>(e, sortOrder));
             }
 
-            int pageSize = 3;
+            int pageSize = 10;
             var sociVmIQ = sociIQ.Select(x => new ViewModels.SocioVm
             {
+                NumeroSocio = x.NumeroSocio,
                 Cognome = x.Cognome,
                 Email = x.Email,
                 ID = x.ID,

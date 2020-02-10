@@ -60,6 +60,7 @@ namespace SociFilarmonicaApp.ViewModels
         public bool PrivacyFirmata { get; set; }
         public bool Annullato { get; set; }
         [Display(Name = "Data di nascita")]
+        [DataType(DataType.Date)]
         public DateTime? DataNascita { get; set; }
         [Display(Name = "Nato a")]
         [StringLength(100)]
