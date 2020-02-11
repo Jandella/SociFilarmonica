@@ -26,7 +26,7 @@ namespace SociFilarmonicaApp.ViewModels
         [Display(Name = "Tipologia Socio")]
         public string TipologiaSocioDesc { get; set; }
         [Display(Name = "Fascia Auto")]
-        public int? TipoAutoID { get; set; }
+        public int? DatiAutoID { get; set; }
         [Display(Name = "Fascia Auto")]
         public string TipoAutoDesc { get; set; }
         [Required]
@@ -62,7 +62,7 @@ namespace SociFilarmonicaApp.ViewModels
         [Display(Name = "Data di nascita")]
         [DataType(DataType.Date)]
         public DateTime? DataNascita { get; set; }
-        [Display(Name = "Nato a")]
+        [Display(Name = "Luogo di nascita")]
         [StringLength(100)]
         public string LuogoNascita { get; set; }
     }

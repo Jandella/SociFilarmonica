@@ -7,48 +7,93 @@
 
     <h1>Dettagli</h1>
 
-<div>
-    <h4>Socio</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Socio.Nome)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Socio.Nome)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Socio.Cognome)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Socio.Cognome)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Socio.Telefono)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Socio.Telefono)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Socio.Email)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Socio.Email)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Socio.TipologiaSocioDesc)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Socio.TipologiaSocioDesc)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Socio.TipoAutoDesc)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Socio.TipoAutoDesc)
-        </dd>
-    </dl>
-</div>
+    <div>
+        <h4>Socio n° @Html.DisplayFor(model => model.Socio.NumeroSocio) - @Html.DisplayFor(model => model.Socio.Nome) @Html.DisplayFor(model => model.Socio.Cognome)</h4>
+        <h5 class="text-muted">@Html.DisplayFor(model => model.Socio.TipologiaSocioDesc)</h5>
+        <hr />
+        <div class="row mb-3">
+            <!--TODO tessera ambima se c'è-->
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <strong>C.F.:</strong> @Html.DisplayFor(model => model.Socio.CodiceFiscale)
+            </div>
+            <div class="col-md-4">
+                <strong>@Html.DisplayNameFor(model => model.Socio.LuogoNascita):</strong> @Html.DisplayFor(model => model.Socio.LuogoNascita)
+            </div>
+            <div class="col-md-4">
+                <strong>@Html.DisplayNameFor(model => model.Socio.DataNascita):</strong> @Html.DisplayFor(model => model.Socio.DataNascita)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Contatti</h5>
+                        <address>
+                            <i class="fa fa-envelope"></i> 
+                            <br />
+                            @Html.DisplayFor(model => model.Socio.Indirizzo) 
+                            <br />
+                            @Html.DisplayFor(model => model.Socio.Citta), @Html.DisplayFor(model => model.Socio.Cap)
+                        </address>
+                        <address>
+                            <i class="fa fa-phone"></i> @Html.DisplayFor(model => model.Socio.Telefono)
+                            @if (!string.IsNullOrEmpty(Model.Socio.Telefono2))
+                            {
+                                <br />
+                                <i class="fa fa-phone"></i> @Html.DisplayFor(model => model.Socio.Telefono2)
+                            }
+                        </address>
+                        <address>
+                            <i class="fa fa-at"></i> @Html.DisplayFor(model => model.Socio.Email)
+                            @if (!string.IsNullOrEmpty(Model.Socio.Email2))
+                            {
+                                <br />
+                                <i class="fa fa-at"></i> @Html.DisplayFor(model => model.Socio.Email2)
+                            }
+                        </address>
+                    </div>
+                </div>
+            </div>
+            @if (Model.Socio.DatiAutoID != null)
+            {
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Dati automobile</h5>
+                            <dl class="row">
+                                <dt class="col-sm-4">
+                                    Fascia rimborso
+                                </dt>
+                                <dd class="col-sm-8">
+                                    @Html.DisplayFor(model => model.Socio.TipoAutoDesc)
+                                </dd>
+                                <dt class="col-sm-4">
+                                    @Html.DisplayNameFor(model => model.Socio.DescrizioneMacchina)
+                                </dt>
+                                <dd class="col-sm-8">
+                                    @Html.DisplayFor(model => model.Socio.DescrizioneMacchina)
+                                </dd>
+                                <dt class="col-sm-4">
+                                    @Html.DisplayNameFor(model => model.Socio.TargaMacchina)
+                                </dt>
+                                <dd class="col-sm-8">
+                                    @Html.DisplayFor(model => model.Socio.TargaMacchina)
+                                </dd>
+                            </dl>
+                            <div class="row">
+                                <div class="col-12">
+                                    <a class="btn btn-outline-primary float-right"><i class="fa fa-calculator"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Socio.ID">Modifica</a> |
     <a asp-page="./Index">Torna alla lista</a>

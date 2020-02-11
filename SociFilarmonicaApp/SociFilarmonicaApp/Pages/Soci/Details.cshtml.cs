@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using SociFilarmonicaApp.Mappings;
 using SociFilarmonicaApp.Models;
 using SociFilarmonicaApp.ViewModels;
 
@@ -36,22 +37,7 @@ namespace SociFilarmonicaApp.Pages.Soci
             if (dbSocio == null)
                 return NotFound();
 
-            Socio = new SocioVm
-            {
-                Cognome = dbSocio.Cognome,
-                Email = dbSocio.Email,
-                ID = dbSocio.ID,
-                Nome = dbSocio.Nome,
-                Telefono = dbSocio.Telefono,
-                TipologiaSocioID = dbSocio.TipologiaSocioID,
-                TipologiaSocioDesc = dbSocio.Tipologia.Descrizione,
-            };
-
-            if(dbSocio.DatiAuto != null)
-            {
-                Socio.TipoAutoID = dbSocio.DatiAutoID;
-                Socio.TipoAutoDesc = $"{dbSocio.DatiAuto.TipoAuto} - {dbSocio.DatiAuto.Carburante}";
-            }
+            Socio = dbSocio.ToSocioVm();
             
             return Page();
         }

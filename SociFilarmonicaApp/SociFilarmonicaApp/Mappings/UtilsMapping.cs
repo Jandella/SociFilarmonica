@@ -28,13 +28,17 @@ namespace SociFilarmonicaApp.Mappings
                 TargaMacchina = socio.TargaMacchina,
                 Telefono = socio.Telefono,
                 Telefono2 = socio.Telefono2,
-                TipoAutoDesc = socio.DatiAuto?.TipoAuto,
-                TipoAutoID = socio.DatiAutoID,
+                DatiAutoID = socio.DatiAutoID,
                 TipologiaSocioDesc = socio.Tipologia?.Descrizione,
                 TipologiaSocioID = socio.TipologiaSocioID,
                 DataNascita = socio.DataNascita,
                 LuogoNascita = socio.LuogoNascita
             };
+            if (socio.DatiAuto != null)
+            {
+                s.DatiAutoID = socio.DatiAutoID;
+                s.TipoAutoDesc = $"{socio.DatiAuto.TipoAuto} - {socio.DatiAuto.Carburante}";
+            }
             return s;
         }
     }

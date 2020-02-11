@@ -50,7 +50,7 @@ namespace SociFilarmonicaApp.Pages.Soci
         {
             if (!ModelState.IsValid)
             {
-                PopulateDropDownLists(_context, Socio.TipologiaSocioID, Socio.TipoAutoID);
+                PopulateDropDownLists(_context, Socio.TipologiaSocioID, Socio.DatiAutoID);
                 return Page();
             }
 
