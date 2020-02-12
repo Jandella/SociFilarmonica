@@ -61,6 +61,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Soci[0].TipologiaSocioDesc)
             </th>
+            <th>Privacy firmata</th>
             <th></th>
         </tr>
     </thead>
@@ -80,6 +81,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.TipologiaSocioDesc)
                 </td>
+                <td>@Html.ToSiNo(item.PrivacyFirmata)</td>
                 <td>
                     <div class="btn-group btn-group-sm">
                         <a class="btn btn-secondary" asp-page="./Edit" asp-route-id="@item.ID"><i class="fa fa-edit"></i></a>

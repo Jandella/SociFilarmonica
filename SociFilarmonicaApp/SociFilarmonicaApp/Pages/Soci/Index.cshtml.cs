@@ -80,12 +80,11 @@ namespace SociFilarmonicaApp.Pages.Soci
             {
                 NumeroSocio = x.NumeroSocio,
                 Cognome = x.Cognome,
-                Email = x.Email,
                 ID = x.ID,
                 Nome = x.Nome,
-                Telefono = x.Telefono,
                 TipologiaSocioID = x.TipologiaSocioID,
-                TipologiaSocioDesc = x.Tipologia.Descrizione
+                TipologiaSocioDesc = x.Tipologia.Descrizione,
+                PrivacyFirmata = x.PrivacyFirmata
             });
 
             Soci = await PaginatedList<ViewModels.SocioVm>.CreateAsync(sociVmIQ.AsNoTracking(), pageIndex ?? 1, pageSize);

@@ -5,95 +5,130 @@
     ViewData["Title"] = "Dettagli";
 }
 
-    <h1>Dettagli</h1>
+<h1>Dettagli</h1>
 
-    <div>
-        <h4>Socio n° @Html.DisplayFor(model => model.Socio.NumeroSocio) - @Html.DisplayFor(model => model.Socio.Nome) @Html.DisplayFor(model => model.Socio.Cognome)</h4>
-        <h5 class="text-muted">@Html.DisplayFor(model => model.Socio.TipologiaSocioDesc)</h5>
-        <hr />
+<div>
+    <h4>Socio n° @Html.DisplayFor(model => model.Socio.NumeroSocio) - @Html.DisplayFor(model => model.Socio.Nome) @Html.DisplayFor(model => model.Socio.Cognome)</h4>
+    <h5 class="text-muted">@Html.DisplayFor(model => model.Socio.TipologiaSocioDesc)</h5>
+    <hr />
+    @if (!string.IsNullOrWhiteSpace(Model.Socio.NumeroTesseraAmbima))
+    {
         <div class="row mb-3">
-            <!--TODO tessera ambima se c'è-->
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-title">
+                            <span class="h5 ">Tessera Ambima n°</span> <span class="text-muted h6">@Html.DisplayFor(model => model.Socio.NumeroTesseraAmbima)</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                @{ 
+                    var buttonStyle = Model.Socio.PrivacyFirmata ? "badge-success" : "badge-warning";
+                    var icon = Model.Socio.PrivacyFirmata ? "fa-check-square" : "fa-minus-square";
+                }
+                <div class="float-right badge @buttonStyle"> <i class="fa @icon"></i> @Html.DisplayNameFor(model => model.Socio.PrivacyFirmata)</div>
+            </div>
         </div>
-        <div class="row mb-3">
-            <div class="col-md-4">
-                <strong>C.F.:</strong> @Html.DisplayFor(model => model.Socio.CodiceFiscale)
-            </div>
-            <div class="col-md-4">
-                <strong>@Html.DisplayNameFor(model => model.Socio.LuogoNascita):</strong> @Html.DisplayFor(model => model.Socio.LuogoNascita)
-            </div>
-            <div class="col-md-4">
-                <strong>@Html.DisplayNameFor(model => model.Socio.DataNascita):</strong> @Html.DisplayFor(model => model.Socio.DataNascita)
+    }
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Contatti</h5>
+                    <address>
+                        <i class="fa fa-envelope"></i>
+                        <br />
+                        @Html.DisplayFor(model => model.Socio.Indirizzo)
+                        <br />
+                        @Html.DisplayFor(model => model.Socio.Citta), @Html.DisplayFor(model => model.Socio.Cap)
+                    </address>
+                    <address>
+                        <i class="fa fa-phone"></i> @Html.DisplayFor(model => model.Socio.Telefono)
+                        @if (!string.IsNullOrEmpty(Model.Socio.Telefono2))
+                        {
+                            <br />
+                            <i class="fa fa-phone"></i> @Html.DisplayFor(model => model.Socio.Telefono2)
+                        }
+                    </address>
+                    <address>
+                        <i class="fa fa-at"></i> @Html.DisplayFor(model => model.Socio.Email)
+                        @if (!string.IsNullOrEmpty(Model.Socio.Email2))
+                        {
+                            <br />
+                            <i class="fa fa-at"></i> @Html.DisplayFor(model => model.Socio.Email2)
+                        }
+                    </address>
+                </div>
             </div>
         </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Dati anagrafici</h5>
+                    <dl class="row">
+                        <dt class="col-sm-6">
+                            C.F.
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.Socio.CodiceFiscale)
+                        </dd>
+                        <dt class="col-sm-6">
+                            @Html.DisplayNameFor(model => model.Socio.LuogoNascita)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.Socio.LuogoNascita)
+                        </dd>
+                        <dt class="col-sm-6">
+                            @Html.DisplayNameFor(model => model.Socio.DataNascita)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.Socio.DataNascita)
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+    @if (Model.Socio.DatiAutoID != null)
+    {
         <div class="row">
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Contatti</h5>
-                        <address>
-                            <i class="fa fa-envelope"></i> 
-                            <br />
-                            @Html.DisplayFor(model => model.Socio.Indirizzo) 
-                            <br />
-                            @Html.DisplayFor(model => model.Socio.Citta), @Html.DisplayFor(model => model.Socio.Cap)
-                        </address>
-                        <address>
-                            <i class="fa fa-phone"></i> @Html.DisplayFor(model => model.Socio.Telefono)
-                            @if (!string.IsNullOrEmpty(Model.Socio.Telefono2))
-                            {
-                                <br />
-                                <i class="fa fa-phone"></i> @Html.DisplayFor(model => model.Socio.Telefono2)
-                            }
-                        </address>
-                        <address>
-                            <i class="fa fa-at"></i> @Html.DisplayFor(model => model.Socio.Email)
-                            @if (!string.IsNullOrEmpty(Model.Socio.Email2))
-                            {
-                                <br />
-                                <i class="fa fa-at"></i> @Html.DisplayFor(model => model.Socio.Email2)
-                            }
-                        </address>
-                    </div>
-                </div>
-            </div>
-            @if (Model.Socio.DatiAutoID != null)
-            {
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Dati automobile</h5>
-                            <dl class="row">
-                                <dt class="col-sm-4">
-                                    Fascia rimborso
-                                </dt>
-                                <dd class="col-sm-8">
-                                    @Html.DisplayFor(model => model.Socio.TipoAutoDesc)
-                                </dd>
-                                <dt class="col-sm-4">
-                                    @Html.DisplayNameFor(model => model.Socio.DescrizioneMacchina)
-                                </dt>
-                                <dd class="col-sm-8">
-                                    @Html.DisplayFor(model => model.Socio.DescrizioneMacchina)
-                                </dd>
-                                <dt class="col-sm-4">
-                                    @Html.DisplayNameFor(model => model.Socio.TargaMacchina)
-                                </dt>
-                                <dd class="col-sm-8">
-                                    @Html.DisplayFor(model => model.Socio.TargaMacchina)
-                                </dd>
-                            </dl>
-                            <div class="row">
-                                <div class="col-12">
-                                    <a class="btn btn-outline-primary float-right"><i class="fa fa-calculator"></i></a>
-                                </div>
+                        <h5 class="card-title">Dati automobile</h5>
+                        <dl class="row">
+                            <dt class="col-sm-6">
+                                Fascia rimborso
+                            </dt>
+                            <dd class="col-sm-6">
+                                @Html.DisplayFor(model => model.Socio.TipoAutoDesc)
+                            </dd>
+                            <dt class="col-sm-6">
+                                @Html.DisplayNameFor(model => model.Socio.DescrizioneMacchina)
+                            </dt>
+                            <dd class="col-sm-6">
+                                @Html.DisplayFor(model => model.Socio.DescrizioneMacchina)
+                            </dd>
+                            <dt class="col-sm-6">
+                                @Html.DisplayNameFor(model => model.Socio.TargaMacchina)
+                            </dt>
+                            <dd class="col-sm-6">
+                                @Html.DisplayFor(model => model.Socio.TargaMacchina)
+                            </dd>
+                        </dl>
+                        <div class="row">
+                            <div class="col-12">
+                                <a class="btn btn-outline-secondary float-right"><i class="fa fa-calculator"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
-            }
-
+            </div>
         </div>
-    </div>
+    }
+</div>
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Socio.ID">Modifica</a> |
     <a asp-page="./Index">Torna alla lista</a>
