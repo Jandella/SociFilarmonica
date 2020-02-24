@@ -60,14 +60,39 @@ namespace SociFilarmonicaApp
             DatiCalcolo.ListaProve.Add(DateTime.Now);
             return Page();
         }
+        public IActionResult OnPostRemoveDataProva(int index)
+        {
+            if(index >= 0 && index < DatiCalcolo.ListaProve.Count)
+            {
+                DatiCalcolo.ListaProve.RemoveAt(index);
+            }
+            return Page();
+        }
 
         public IActionResult OnPostAddAltroCosto()
         {
             DatiCalcolo.AltriCosti.Add(new CalcoloRimborsoAltriCostiVM());
             return Page();
         }
+        public IActionResult OnPostRemoveAltroCosto(int index)
+        {
+            if (index >= 0 && index < DatiCalcolo.AltriCosti.Count)
+            {
+                DatiCalcolo.AltriCosti.RemoveAt(index);
+            }
+            return Page();
+        }
 
         public IActionResult OnPost()
+        {
+            //calcola il totale
+            var totale = DatiCalcolo.Calcola();
+            Console.WriteLine(totale);
+            //Todo: assegna al modello risultato
+            return Page();
+        }
+        
+        public IActionResult OnPostGeneraExcel()
         {
             //TODO: stampa excel
             return Page();

@@ -40,6 +40,14 @@ namespace SociFilarmonicaApp.ViewModels
         public decimal TotaleReale { get; set; }
         [Display(Name = "Totale dovuto")]
         public decimal TotaleDovuto { get; set; }
+
+        public decimal Calcola()
+        {
+            var andataRitornoPerUnaProva = Distanza * 2 * RimborsoKm;
+            var totaleAndataRitorno = NumeroProve * andataRitornoPerUnaProva;
+            var costiAggiuntivi = AltriCosti?.Sum(x => x.Costo) ?? 0;
+            return totaleAndataRitorno + costiAggiuntivi;
+        }
     }
     public class CalcoloRimborsoAltriCostiVM
     {
