@@ -18,6 +18,7 @@ namespace SociFilarmonicaApp.ViewModels
         public string Cognome { get; set; }
         [Required]
         [Display(Name = "Prove a cui ha partecipato")]
+        [DataType(DataType.Date)]
         public List<DateTime> ListaProve { get; set; }
         [Display(Name = "Numero prove")]
         public int NumeroProve => ListaProve?.Count ?? 0;

@@ -48,8 +48,28 @@ namespace SociFilarmonicaApp
                 InfoAutoID = socio.DatiAutoID.Value,
                 RimborsoKm = socio.DatiAuto.RimborsoKm,
                 TargaMacchina = socio.TargaMacchina,
-                TipoAuto = socio.DatiAuto.TipoAuto
+                TipoAuto = socio.DatiAuto.TipoAuto,
+                ListaProve = new List<DateTime> { DateTime.Now },
+                AltriCosti = new List<CalcoloRimborsoAltriCostiVM> { new CalcoloRimborsoAltriCostiVM() }
             };
+            return Page();
+        }
+
+        public IActionResult OnPostAddDataProva()
+        {
+            DatiCalcolo.ListaProve.Add(DateTime.Now);
+            return Page();
+        }
+
+        public IActionResult OnPostAddAltroCosto()
+        {
+            DatiCalcolo.AltriCosti.Add(new CalcoloRimborsoAltriCostiVM());
+            return Page();
+        }
+
+        public IActionResult OnPost()
+        {
+            //TODO: stampa excel
             return Page();
         }
     }
