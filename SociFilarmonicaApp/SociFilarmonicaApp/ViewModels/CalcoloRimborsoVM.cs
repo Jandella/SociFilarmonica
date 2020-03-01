@@ -48,6 +48,8 @@ namespace SociFilarmonicaApp.ViewModels
             var costiAggiuntivi = AltriCosti?.Sum(x => x.Costo) ?? 0;
             return totaleAndataRitorno + costiAggiuntivi;
         }
+
+        
     }
     public class CalcoloRimborsoAltriCostiVM
     {

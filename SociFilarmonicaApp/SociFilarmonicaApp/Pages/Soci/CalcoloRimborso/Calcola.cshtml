@@ -100,7 +100,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="DatiCalcolo.TotaleReale" class="control-label"></label>
-                <input asp-for="DatiCalcolo.TotaleReale" class="form-control" readonly />
+                <div class="form-control">@Html.DisplayFor(model => model.DatiCalcolo.TotaleReale)</div>
                 <span asp-validation-for="DatiCalcolo.TotaleReale" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -110,7 +110,7 @@
             </div>
             <div class="form-row">
                 <div class="form-group col">
-                    <button type="submit" class="btn btn-secondary float-right"><i class="fa fa-calculator"></i></button>
+                    <button type="submit" asp-page-handler="Calcolatrice" class="btn btn-secondary float-right"><i class="fa fa-calculator"></i></button>
                 </div>
             </div>
         </div>
