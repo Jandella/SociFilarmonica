@@ -47,8 +47,8 @@ namespace SociFilarmonicaApp.Pages.Soci
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                sociIQ = sociIQ.Where(x => x.Nome.Contains(searchString, StringComparison.InvariantCultureIgnoreCase) 
-                || x.Cognome.Contains(searchString, StringComparison.InvariantCultureIgnoreCase));
+                sociIQ = sociIQ.Where(x => x.Nome.ToUpper().Contains(searchString.ToUpper()) 
+                || x.Cognome.ToUpper().Contains(searchString.ToUpper()));
             }
 
             if (string.IsNullOrEmpty(sortOrder))
