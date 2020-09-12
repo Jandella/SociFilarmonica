@@ -7,15 +7,15 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SociFilarmonicaApp.Data;
-using SociFilarmonicaApp.DbModels;
+using SociFilarmonicaApp.Data.DbModels;
 
 namespace SociFilarmonicaApp.Pages.DatiAuto
 {
     public class EditModel : PageModel
     {
-        private readonly SociFilarmonicaApp.Data.FilarmonicaContext _context;
+        private readonly FilarmonicaContext _context;
 
-        public EditModel(SociFilarmonicaApp.Data.FilarmonicaContext context)
+        public EditModel(FilarmonicaContext context)
         {
             _context = context;
         }

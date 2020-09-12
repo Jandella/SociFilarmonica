@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using SociFilarmonicaApp.DbModels;
 using SociFilarmonicaApp.Data.DbModels;
 
 namespace SociFilarmonicaApp.Data
@@ -18,6 +17,8 @@ namespace SociFilarmonicaApp.Data
         public DbSet<Socio> Soci { get; set; }
         public DbSet<TipologiaSocio> TipologiaSoci { get; set; }
         public DbSet<InfoAuto> InfoAutomobili { get; set; }
+        public DbSet<RimborsoKm> RimborsoKm { get; set; }
+        public DbSet<Quote> QuoteAssociative { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,8 +26,10 @@ namespace SociFilarmonicaApp.Data
             modelBuilder.Entity<Socio>().ToTable("Socio");
             modelBuilder.Entity<TipologiaSocio>().ToTable("TipologiaSocio");
             modelBuilder.Entity<InfoAuto>().ToTable("InfoAuto");
+            modelBuilder.Entity<RimborsoKm>().ToTable("Rimborsi");
+            modelBuilder.Entity<Quote>().ToTable("Quote");
         }
 
-        public DbSet<SociFilarmonicaApp.Data.DbModels.RimborsoKm> RimborsoKm { get; set; }
+        
     }
 }

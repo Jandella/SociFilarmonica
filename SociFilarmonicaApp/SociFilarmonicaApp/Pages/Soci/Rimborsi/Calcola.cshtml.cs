@@ -93,6 +93,8 @@ namespace SociFilarmonicaApp
         public IActionResult OnPost()
         {
             //calcola il totale
+            var totale = DatiCalcolo.Calcola();
+            DatiCalcolo.TotaleReale = totale;
             //todo: salva
             return Page();
         }

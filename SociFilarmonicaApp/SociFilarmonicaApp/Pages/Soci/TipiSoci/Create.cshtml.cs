@@ -6,15 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SociFilarmonicaApp.Data;
-using SociFilarmonicaApp.DbModels;
+using SociFilarmonicaApp.Data.DbModels;
 
 namespace SociFilarmonicaApp.Pages.TipiSoci
 {
     public class CreateModel : PageModel
     {
-        private readonly SociFilarmonicaApp.Data.FilarmonicaContext _context;
+        private readonly FilarmonicaContext _context;
 
-        public CreateModel(SociFilarmonicaApp.Data.FilarmonicaContext context)
+        public CreateModel(FilarmonicaContext context)
         {
             _context = context;
         }

@@ -1,4 +1,4 @@
-﻿using SociFilarmonicaApp.DbModels;
+﻿using SociFilarmonicaApp.Data.DbModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

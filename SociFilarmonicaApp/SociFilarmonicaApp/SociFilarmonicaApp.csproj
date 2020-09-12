@@ -19,6 +19,8 @@
     <Compile Remove="Migrations\20200205211615_InitialCreate.Designer.cs" />
     <Compile Remove="Migrations\20200205221107_InitialCreate.cs" />
     <Compile Remove="Migrations\20200205221107_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200912223342_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200912223342_InitialCreate.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Data\SF.db" />

@@ -1,2 +1,2 @@
-# SociFilarmonica
-Per gestire i soci di una società filarmonica
+# Soci Filarmonica
+Per gestire i soci di una società filarmonica.

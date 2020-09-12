@@ -25,21 +25,6 @@ namespace SociFilarmonicaApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RimborsoKm",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    DataCreazione = table.Column<DateTime>(nullable: false),
-                    DataUltimaModifica = table.Column<DateTime>(nullable: false),
-                    DatiRimborsoSerializzati = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RimborsoKm", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "TipologiaSocio",
                 columns: table => new
                 {
@@ -123,9 +108,36 @@ namespace SociFilarmonicaApp.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Rimborsi",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    SocioID = table.Column<int>(nullable: false),
+                    DataCreazione = table.Column<DateTime>(nullable: false),
+                    DataUltimaModifica = table.Column<DateTime>(nullable: false),
+                    DatiRimborsoSerializzati = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rimborsi", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Rimborsi_Socio_SocioID",
+                        column: x => x.SocioID,
+                        principalTable: "Socio",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Quote_SocioID",
                 table: "Quote",
+                column: "SocioID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rimborsi_SocioID",
+                table: "Rimborsi",
                 column: "SocioID");
 
             migrationBuilder.CreateIndex(
@@ -145,7 +157,7 @@ namespace SociFilarmonicaApp.Migrations
                 name: "Quote");
 
             migrationBuilder.DropTable(
-                name: "RimborsoKm");
+                name: "Rimborsi");
 
             migrationBuilder.DropTable(
                 name: "Socio");

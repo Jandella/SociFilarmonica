@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using SociFilarmonicaApp.Data;
-using SociFilarmonicaApp.DbModels;
 using SociFilarmonicaApp.Models;
 
 namespace SociFilarmonicaApp.Pages.DatiAuto
@@ -14,7 +13,7 @@ namespace SociFilarmonicaApp.Pages.DatiAuto
     public class DetailsModel : InfoAutoPageModel
     {
 
-        public DetailsModel(SociFilarmonicaApp.Data.FilarmonicaContext context) : base(context)
+        public DetailsModel(FilarmonicaContext context) : base(context)
         {
             
         }

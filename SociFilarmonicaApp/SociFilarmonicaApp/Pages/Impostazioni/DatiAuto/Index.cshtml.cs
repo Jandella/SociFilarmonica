@@ -6,15 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using SociFilarmonicaApp.Data;
-using SociFilarmonicaApp.DbModels;
+using SociFilarmonicaApp.Data.DbModels;
 
 namespace SociFilarmonicaApp.Pages.DatiAuto
 {
     public class IndexModel : PageModel
     {
-        private readonly SociFilarmonicaApp.Data.FilarmonicaContext _context;
+        private readonly FilarmonicaContext _context;
 
-        public IndexModel(SociFilarmonicaApp.Data.FilarmonicaContext context)
+        public IndexModel(FilarmonicaContext context)
         {
             _context = context;
         }

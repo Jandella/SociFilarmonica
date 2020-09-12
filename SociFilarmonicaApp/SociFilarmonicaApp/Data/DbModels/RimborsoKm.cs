@@ -8,6 +8,8 @@ namespace SociFilarmonicaApp.Data.DbModels
     public class RimborsoKm
     {
         public int ID { get; set; }
+        public int SocioID { get; set; }
+        public Socio Socio { get; set; }
         public DateTime DataCreazione { get; set; } = DateTime.Now;
         public DateTime DataUltimaModifica { get; set; } = DateTime.Now;
         public string DatiRimborsoSerializzati { get; set; }

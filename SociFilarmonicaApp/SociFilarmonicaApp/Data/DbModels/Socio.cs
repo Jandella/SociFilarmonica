@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SociFilarmonicaApp.DbModels
+namespace SociFilarmonicaApp.Data.DbModels
 {
     public class Socio
     {
