@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SociFilarmonicaApp.ViewModels
+namespace SociFilarmonicaApp.Models
 {
     public class RiepilogoSociVM
     {

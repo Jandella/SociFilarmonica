@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using SociFilarmonicaApp.Data;
-using SociFilarmonicaApp.Models;
+using SociFilarmonicaApp.DbModels;
 
 namespace SociFilarmonicaApp.Pages.Soci
 {
@@ -24,7 +24,7 @@ namespace SociFilarmonicaApp.Pages.Soci
         public string CurrentFilter { get; set; }
         public string CurrentSort { get; set; }
 
-        public PaginatedList<ViewModels.SocioVm> Soci { get;set; }
+        public PaginatedList<Models.SocioVm> Soci { get;set; }
 
         public async Task OnGetAsync(string sortOrder, string currentFilter, string searchString, int? pageIndex)
         {
@@ -76,7 +76,7 @@ namespace SociFilarmonicaApp.Pages.Soci
             }
 
             int pageSize = 10;
-            var sociVmIQ = sociIQ.Select(x => new ViewModels.SocioVm
+            var sociVmIQ = sociIQ.Select(x => new Models.SocioVm
             {
                 NumeroSocio = x.NumeroSocio,
                 Cognome = x.Cognome,
@@ -87,7 +87,7 @@ namespace SociFilarmonicaApp.Pages.Soci
                 PrivacyFirmata = x.PrivacyFirmata
             });
 
-            Soci = await PaginatedList<ViewModels.SocioVm>.CreateAsync(sociVmIQ.AsNoTracking(), pageIndex ?? 1, pageSize);
+            Soci = await PaginatedList<Models.SocioVm>.CreateAsync(sociVmIQ.AsNoTracking(), pageIndex ?? 1, pageSize);
         }
     }
 }

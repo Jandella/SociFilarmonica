@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using SociFilarmonicaApp.ViewModels;
+using SociFilarmonicaApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

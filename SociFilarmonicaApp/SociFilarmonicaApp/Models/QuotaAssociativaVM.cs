@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SociFilarmonicaApp.ViewModels
+namespace SociFilarmonicaApp.Models
 {
     public class QuotaAssociativaVM
     {

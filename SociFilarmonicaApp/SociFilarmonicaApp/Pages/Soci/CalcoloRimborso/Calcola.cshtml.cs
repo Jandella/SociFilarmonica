@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using SociFilarmonicaApp.Data;
-using SociFilarmonicaApp.ViewModels;
+using SociFilarmonicaApp.Models;
 
 namespace SociFilarmonicaApp
 {

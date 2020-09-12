@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using SociFilarmonicaApp.Data;
-using SociFilarmonicaApp.Models;
+using SociFilarmonicaApp.DbModels;
 
-namespace SociFilarmonicaApp.Pages.DatiAuto
+namespace SociFilarmonicaApp.Pages.TipiSoci
 {
     public class IndexModel : PageModel
     {
@@ -19,11 +19,11 @@ namespace SociFilarmonicaApp.Pages.DatiAuto
             _context = context;
         }
 
-        public IList<InfoAuto> InfoAuto { get;set; }
+        public IList<TipologiaSocio> TipologiaSocio { get;set; }
 
         public async Task OnGetAsync()
         {
-            InfoAuto = await _context.InfoAutomobili.ToListAsync();
+            TipologiaSocio = await _context.TipologiaSoci.AsNoTracking().ToListAsync();
         }
     }
 }

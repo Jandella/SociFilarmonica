@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SociFilarmonicaApp.Models
+namespace SociFilarmonicaApp.DbModels
 {
     public class Quote
     {
@@ -12,5 +12,7 @@ namespace SociFilarmonicaApp.Models
         public Socio Socio { get; set; }
         public decimal QuotaSociale { get; set; }
         public int Anno { get; set; }
+        public DateTime DataCreazione { get; set; } = DateTime.Now;
+        public DateTime DataUltimaModifica { get; set; } = DateTime.Now;
     }
 }

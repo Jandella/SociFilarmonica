@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SociFilarmonicaApp.ViewModels
+namespace SociFilarmonicaApp.DbModels
 {
-    public class InfoAutoVm
+    public class InfoAuto
     {
         public int ID { get; set; }
         [Display(Name = "Tipo di auto")]
@@ -14,7 +14,9 @@ namespace SociFilarmonicaApp.ViewModels
         public string Carburante { get; set; }
         [Display(Name = "Rimborso per Km")]
         public decimal RimborsoKm { get; set; }
-        [Display(Name = "Soci assegnati")]
-        public int SociConQuestaAuto { get; set; }
+        public DateTime DataCreazione { get; set; } = DateTime.Now;
+        public DateTime DataUltimaModifica { get; set; } = DateTime.Now;
+
+
     }
 }

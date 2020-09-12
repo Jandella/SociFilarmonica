@@ -15,11 +15,28 @@ namespace SociFilarmonicaApp.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     TipoAuto = table.Column<string>(nullable: true),
                     Carburante = table.Column<string>(nullable: true),
-                    RimborsoKm = table.Column<decimal>(nullable: false)
+                    RimborsoKm = table.Column<decimal>(nullable: false),
+                    DataCreazione = table.Column<DateTime>(nullable: false),
+                    DataUltimaModifica = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_InfoAuto", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RimborsoKm",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    DataCreazione = table.Column<DateTime>(nullable: false),
+                    DataUltimaModifica = table.Column<DateTime>(nullable: false),
+                    DatiRimborsoSerializzati = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RimborsoKm", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -28,7 +45,9 @@ namespace SociFilarmonicaApp.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Descrizione = table.Column<string>(maxLength: 100, nullable: false)
+                    Descrizione = table.Column<string>(maxLength: 100, nullable: false),
+                    DataCreazione = table.Column<DateTime>(nullable: false),
+                    DataUltimaModifica = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -60,7 +79,9 @@ namespace SociFilarmonicaApp.Migrations
                     PrivacyFirmata = table.Column<bool>(nullable: false),
                     Annullato = table.Column<bool>(nullable: false),
                     DataNascita = table.Column<DateTime>(nullable: true),
-                    LuogoNascita = table.Column<string>(maxLength: 100, nullable: true)
+                    LuogoNascita = table.Column<string>(maxLength: 100, nullable: true),
+                    DataCreazione = table.Column<DateTime>(nullable: false),
+                    DataUltimaModifica = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -87,7 +108,9 @@ namespace SociFilarmonicaApp.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     SocioID = table.Column<int>(nullable: false),
                     QuotaSociale = table.Column<decimal>(nullable: false),
-                    Anno = table.Column<int>(nullable: false)
+                    Anno = table.Column<int>(nullable: false),
+                    DataCreazione = table.Column<DateTime>(nullable: false),
+                    DataUltimaModifica = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -120,6 +143,9 @@ namespace SociFilarmonicaApp.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Quote");
+
+            migrationBuilder.DropTable(
+                name: "RimborsoKm");
 
             migrationBuilder.DropTable(
                 name: "Socio");

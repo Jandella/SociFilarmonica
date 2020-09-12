@@ -6,19 +6,21 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using SociFilarmonicaApp.Data;
-using SociFilarmonicaApp.Models;
-using SociFilarmonicaApp.ViewModels;
+using SociFilarmonicaApp.Data.DbModels;
 
-namespace SociFilarmonicaApp.Pages.DatiAuto
+namespace SociFilarmonicaApp.Pages.StoricoRimborsi
 {
-    public class DeleteModel : InfoAutoPageModel
+    public class DeleteModel : PageModel
     {
+        private readonly SociFilarmonicaApp.Data.FilarmonicaContext _context;
 
-        public DeleteModel(FilarmonicaContext context) : base(context)
+        public DeleteModel(SociFilarmonicaApp.Data.FilarmonicaContext context)
         {
+            _context = context;
         }
 
-        
+        [BindProperty]
+        public RimborsoKm RimborsoKm { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -26,14 +28,13 @@ namespace SociFilarmonicaApp.Pages.DatiAuto
             {
                 return NotFound();
             }
-            InfoAuto = await GetViewModel(id);
-            
 
-            if (InfoAuto == null)
+            RimborsoKm = await _context.RimborsoKm.FirstOrDefaultAsync(m => m.ID == id);
+
+            if (RimborsoKm == null)
             {
                 return NotFound();
             }
-
             return Page();
         }
 
@@ -44,11 +45,11 @@ namespace SociFilarmonicaApp.Pages.DatiAuto
                 return NotFound();
             }
 
-            var dbAuto = await _context.InfoAutomobili.FindAsync(id);
+            RimborsoKm = await _context.RimborsoKm.FindAsync(id);
 
-            if (dbAuto != null)
+            if (RimborsoKm != null)
             {
-                _context.InfoAutomobili.Remove(dbAuto);
+                _context.RimborsoKm.Remove(RimborsoKm);
                 await _context.SaveChangesAsync();
             }
 

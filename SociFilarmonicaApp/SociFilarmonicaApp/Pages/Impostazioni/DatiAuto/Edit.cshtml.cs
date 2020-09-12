@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SociFilarmonicaApp.Data;
-using SociFilarmonicaApp.Models;
+using SociFilarmonicaApp.DbModels;
 
-namespace SociFilarmonicaApp.Pages.TipiSoci
+namespace SociFilarmonicaApp.Pages.DatiAuto
 {
     public class EditModel : PageModel
     {
@@ -21,7 +21,7 @@ namespace SociFilarmonicaApp.Pages.TipiSoci
         }
 
         [BindProperty]
-        public TipologiaSocio TipologiaSocio { get; set; }
+        public InfoAuto InfoAuto { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,9 +30,9 @@ namespace SociFilarmonicaApp.Pages.TipiSoci
                 return NotFound();
             }
 
-            TipologiaSocio = await _context.TipologiaSoci.FirstOrDefaultAsync(m => m.ID == id);
+            InfoAuto = await _context.InfoAutomobili.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (TipologiaSocio == null)
+            if (InfoAuto == null)
             {
                 return NotFound();
             }
@@ -47,36 +47,36 @@ namespace SociFilarmonicaApp.Pages.TipiSoci
             {
                 return Page();
             }
-            var tipologiaDaAggiornare = await _context.TipologiaSoci.FindAsync(id);
-            if(await TryUpdateModelAsync(
-                tipologiaDaAggiornare, 
-                "TipologiaSocio", 
-                t => t.Descrizione))
-            {
-                await _context.SaveChangesAsync();
-            }
 
-            _context.Attach(TipologiaSocio).State = EntityState.Modified;
+            InfoAuto.DataUltimaModifica = DateTime.Now;
+
+            var infoDaAggiornare = await _context.InfoAutomobili.FindAsync(id);
+            infoDaAggiornare.DataUltimaModifica = DateTime.Now;
+
+            _context.Entry(infoDaAggiornare).CurrentValues.SetValues(InfoAuto);
 
             try
             {
                 await _context.SaveChangesAsync();
-                return RedirectToPage("./Index");
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TipologiaSocioExists(TipologiaSocio.ID))
+                if (!InfoAutoExists(InfoAuto.ID))
                 {
                     return NotFound();
                 }
+                else
+                {
+                    throw;
+                }
             }
 
-            return Page();
+            return RedirectToPage("./Index");
         }
 
-        private bool TipologiaSocioExists(int id)
+        private bool InfoAutoExists(int id)
         {
-            return _context.TipologiaSoci.Any(e => e.ID == id);
+            return _context.InfoAutomobili.Any(e => e.ID == id);
         }
     }
 }

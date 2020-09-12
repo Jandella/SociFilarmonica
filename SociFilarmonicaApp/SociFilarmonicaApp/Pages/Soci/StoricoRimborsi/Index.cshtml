@@ -1,0 +1,48 @@
+﻿@page
+@model SociFilarmonicaApp.Pages.StoricoRimborsi.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RimborsoKm[0].DataCreazione)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RimborsoKm[0].DataUltimaModifica)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RimborsoKm[0].DatiRimborsoSerializzati)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.RimborsoKm) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataCreazione)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataUltimaModifica)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatiRimborsoSerializzati)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

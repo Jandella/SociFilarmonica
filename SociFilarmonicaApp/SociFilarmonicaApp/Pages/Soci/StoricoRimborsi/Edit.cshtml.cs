@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SociFilarmonicaApp.Data;
-using SociFilarmonicaApp.Models;
+using SociFilarmonicaApp.Data.DbModels;
 
-namespace SociFilarmonicaApp.Pages.DatiAuto
+namespace SociFilarmonicaApp.Pages.StoricoRimborsi
 {
     public class EditModel : PageModel
     {
@@ -21,7 +21,7 @@ namespace SociFilarmonicaApp.Pages.DatiAuto
         }
 
         [BindProperty]
-        public InfoAuto InfoAuto { get; set; }
+        public RimborsoKm RimborsoKm { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,17 +30,17 @@ namespace SociFilarmonicaApp.Pages.DatiAuto
                 return NotFound();
             }
 
-            InfoAuto = await _context.InfoAutomobili.FirstOrDefaultAsync(m => m.ID == id);
+            RimborsoKm = await _context.RimborsoKm.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (InfoAuto == null)
+            if (RimborsoKm == null)
             {
                 return NotFound();
             }
             return Page();
         }
 
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
+        // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -48,7 +48,7 @@ namespace SociFilarmonicaApp.Pages.DatiAuto
                 return Page();
             }
 
-            _context.Attach(InfoAuto).State = EntityState.Modified;
+            _context.Attach(RimborsoKm).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +56,7 @@ namespace SociFilarmonicaApp.Pages.DatiAuto
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!InfoAutoExists(InfoAuto.ID))
+                if (!RimborsoKmExists(RimborsoKm.ID))
                 {
                     return NotFound();
                 }
@@ -69,9 +69,9 @@ namespace SociFilarmonicaApp.Pages.DatiAuto
             return RedirectToPage("./Index");
         }
 
-        private bool InfoAutoExists(int id)
+        private bool RimborsoKmExists(int id)
         {
-            return _context.InfoAutomobili.Any(e => e.ID == id);
+            return _context.RimborsoKm.Any(e => e.ID == id);
         }
     }
 }

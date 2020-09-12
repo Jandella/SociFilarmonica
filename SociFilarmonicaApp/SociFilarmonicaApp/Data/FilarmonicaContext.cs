@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using SociFilarmonicaApp.Models;
+using SociFilarmonicaApp.DbModels;
+using SociFilarmonicaApp.Data.DbModels;
 
 namespace SociFilarmonicaApp.Data
 {
@@ -25,5 +26,7 @@ namespace SociFilarmonicaApp.Data
             modelBuilder.Entity<TipologiaSocio>().ToTable("TipologiaSocio");
             modelBuilder.Entity<InfoAuto>().ToTable("InfoAuto");
         }
+
+        public DbSet<SociFilarmonicaApp.Data.DbModels.RimborsoKm> RimborsoKm { get; set; }
     }
 }

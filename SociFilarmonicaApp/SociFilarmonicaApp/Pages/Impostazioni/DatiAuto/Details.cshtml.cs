@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using SociFilarmonicaApp.Data;
+using SociFilarmonicaApp.DbModels;
 using SociFilarmonicaApp.Models;
-using SociFilarmonicaApp.ViewModels;
 
 namespace SociFilarmonicaApp.Pages.DatiAuto
 {

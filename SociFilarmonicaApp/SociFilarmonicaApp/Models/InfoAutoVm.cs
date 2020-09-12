@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SociFilarmonicaApp.Models
 {
-    public class InfoAuto
+    public class InfoAutoVm
     {
         public int ID { get; set; }
         [Display(Name = "Tipo di auto")]
@@ -14,7 +14,7 @@ namespace SociFilarmonicaApp.Models
         public string Carburante { get; set; }
         [Display(Name = "Rimborso per Km")]
         public decimal RimborsoKm { get; set; }
-
-
+        [Display(Name = "Soci assegnati")]
+        public int SociConQuestaAuto { get; set; }
     }
 }

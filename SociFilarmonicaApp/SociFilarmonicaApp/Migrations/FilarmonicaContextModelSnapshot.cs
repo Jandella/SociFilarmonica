@@ -14,15 +14,41 @@ namespace SociFilarmonicaApp.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.0");
+                .HasAnnotation("ProductVersion", "3.1.8");
 
-            modelBuilder.Entity("SociFilarmonicaApp.Models.InfoAuto", b =>
+            modelBuilder.Entity("SociFilarmonicaApp.Data.DbModels.RimborsoKm", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DataCreazione")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataUltimaModifica")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DatiRimborsoSerializzati")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("RimborsoKm");
+                });
+
+            modelBuilder.Entity("SociFilarmonicaApp.DbModels.InfoAuto", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Carburante")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataCreazione")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataUltimaModifica")
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("RimborsoKm")
@@ -36,7 +62,7 @@ namespace SociFilarmonicaApp.Migrations
                     b.ToTable("InfoAuto");
                 });
 
-            modelBuilder.Entity("SociFilarmonicaApp.Models.Quote", b =>
+            modelBuilder.Entity("SociFilarmonicaApp.DbModels.Quote", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -44,6 +70,12 @@ namespace SociFilarmonicaApp.Migrations
 
                     b.Property<int>("Anno")
                         .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DataCreazione")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataUltimaModifica")
+                        .HasColumnType("TEXT");
 
                     b.Property<decimal>("QuotaSociale")
                         .HasColumnType("TEXT");
@@ -58,7 +90,7 @@ namespace SociFilarmonicaApp.Migrations
                     b.ToTable("Quote");
                 });
 
-            modelBuilder.Entity("SociFilarmonicaApp.Models.Socio", b =>
+            modelBuilder.Entity("SociFilarmonicaApp.DbModels.Socio", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -84,7 +116,13 @@ namespace SociFilarmonicaApp.Migrations
                         .HasColumnType("TEXT")
                         .HasMaxLength(100);
 
+                    b.Property<DateTime>("DataCreazione")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime?>("DataNascita")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataUltimaModifica")
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("DatiAutoID")
@@ -148,11 +186,17 @@ namespace SociFilarmonicaApp.Migrations
                     b.ToTable("Socio");
                 });
 
-            modelBuilder.Entity("SociFilarmonicaApp.Models.TipologiaSocio", b =>
+            modelBuilder.Entity("SociFilarmonicaApp.DbModels.TipologiaSocio", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DataCreazione")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataUltimaModifica")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Descrizione")
                         .IsRequired()
@@ -164,22 +208,22 @@ namespace SociFilarmonicaApp.Migrations
                     b.ToTable("TipologiaSocio");
                 });
 
-            modelBuilder.Entity("SociFilarmonicaApp.Models.Quote", b =>
+            modelBuilder.Entity("SociFilarmonicaApp.DbModels.Quote", b =>
                 {
-                    b.HasOne("SociFilarmonicaApp.Models.Socio", "Socio")
+                    b.HasOne("SociFilarmonicaApp.DbModels.Socio", "Socio")
                         .WithMany("RegistroQuote")
                         .HasForeignKey("SocioID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SociFilarmonicaApp.Models.Socio", b =>
+            modelBuilder.Entity("SociFilarmonicaApp.DbModels.Socio", b =>
                 {
-                    b.HasOne("SociFilarmonicaApp.Models.InfoAuto", "DatiAuto")
+                    b.HasOne("SociFilarmonicaApp.DbModels.InfoAuto", "DatiAuto")
                         .WithMany()
                         .HasForeignKey("DatiAutoID");
 
-                    b.HasOne("SociFilarmonicaApp.Models.TipologiaSocio", "Tipologia")
+                    b.HasOne("SociFilarmonicaApp.DbModels.TipologiaSocio", "Tipologia")
                         .WithMany("SociDiCategoria")
                         .HasForeignKey("TipologiaSocioID");
                 });

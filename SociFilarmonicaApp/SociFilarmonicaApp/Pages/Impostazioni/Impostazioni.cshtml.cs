@@ -36,7 +36,7 @@ namespace SociFilarmonicaApp
                     var saveOptions = new SaveDialogOptions
                     {
                         Title = "Save a Excel File",
-                        DefaultPath = await Electron.App.GetPathAsync(PathName.documents),
+                        DefaultPath = await Electron.App.GetPathAsync(PathName.Documents),
                         Filters = new FileFilter[]
                         {
                         new FileFilter { Name = "xlsx", Extensions = new string[] { "xlsx" } }
@@ -46,6 +46,11 @@ namespace SociFilarmonicaApp
 
 
                     var path = await Electron.Dialog.ShowSaveDialogAsync(mainWindow, saveOptions);
+
+                    if (!string.IsNullOrEmpty(path))
+                    {
+                        return;
+                    }
 
                     try
                     {

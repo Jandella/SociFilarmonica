@@ -7,9 +7,9 @@ namespace SociFilarmonicaApp.Mappings
 {
     public static class UtilsMapping
     {
-        public static ViewModels.SocioVm ToSocioVm(this Models.Socio socio)
+        public static Models.SocioVm ToSocioVm(this DbModels.Socio socio)
         {
-            ViewModels.SocioVm s = new ViewModels.SocioVm()
+            Models.SocioVm s = new Models.SocioVm()
             {
                 Annullato = socio.Annullato,
                 Cap = socio.Cap,

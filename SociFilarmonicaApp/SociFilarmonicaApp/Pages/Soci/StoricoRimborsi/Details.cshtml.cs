@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using SociFilarmonicaApp.Data;
-using SociFilarmonicaApp.Models;
+using SociFilarmonicaApp.Data.DbModels;
 
-namespace SociFilarmonicaApp.Pages.TipiSoci
+namespace SociFilarmonicaApp.Pages.StoricoRimborsi
 {
     public class DetailsModel : PageModel
     {
@@ -19,7 +19,7 @@ namespace SociFilarmonicaApp.Pages.TipiSoci
             _context = context;
         }
 
-        public TipologiaSocio TipologiaSocio { get; set; }
+        public RimborsoKm RimborsoKm { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,9 +28,9 @@ namespace SociFilarmonicaApp.Pages.TipiSoci
                 return NotFound();
             }
 
-            TipologiaSocio = await _context.TipologiaSoci.FirstOrDefaultAsync(m => m.ID == id);
+            RimborsoKm = await _context.RimborsoKm.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (TipologiaSocio == null)
+            if (RimborsoKm == null)
             {
                 return NotFound();
             }

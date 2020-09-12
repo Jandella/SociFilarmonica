@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SociFilarmonicaApp.Mappings;
+using SociFilarmonicaApp.DbModels;
 using SociFilarmonicaApp.Models;
-using SociFilarmonicaApp.ViewModels;
 
 namespace SociFilarmonicaApp.Pages.Soci
 {
@@ -55,6 +55,7 @@ namespace SociFilarmonicaApp.Pages.Soci
             }
 
             var socioDaAggiornare = await _context.Soci.FindAsync(id);
+            socioDaAggiornare.DataUltimaModifica = DateTime.Now;
 
             _context.Entry(socioDaAggiornare).CurrentValues.SetValues(Socio);
 

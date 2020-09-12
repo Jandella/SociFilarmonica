@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using SociFilarmonicaApp.Models;
+using SociFilarmonicaApp.DbModels;
 using SociFilarmonicaApp.Data;
 using ElectronNET.API;
 using ElectronNET.API.Entities;

@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SociFilarmonicaApp.Data;
+using SociFilarmonicaApp.DbModels;
 using SociFilarmonicaApp.Models;
-using SociFilarmonicaApp.ViewModels;
 
 namespace SociFilarmonicaApp.Pages.Soci
 {
@@ -46,6 +46,7 @@ namespace SociFilarmonicaApp.Pages.Soci
             try
             {
                 var entry = _context.Add(new Socio());
+                
                 entry.CurrentValues.SetValues(Socio);
 
                 await _context.SaveChangesAsync();
