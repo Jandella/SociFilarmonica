@@ -115,6 +115,7 @@ namespace SociFilarmonicaApp.Migrations
                     ID = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     SocioID = table.Column<int>(nullable: false),
+                    Descrizione = table.Column<string>(maxLength: 100, nullable: true),
                     DataCreazione = table.Column<DateTime>(nullable: false),
                     DataUltimaModifica = table.Column<DateTime>(nullable: false),
                     DatiRimborsoSerializzati = table.Column<string>(nullable: true)

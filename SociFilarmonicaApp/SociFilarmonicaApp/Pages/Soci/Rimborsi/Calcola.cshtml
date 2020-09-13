@@ -15,6 +15,7 @@
 
 <form method="post" asp-route="./Calcola">
     @*Cose che devo ripassare al backend per riaverle nella view*@
+    @Html.HiddenFor(model => model.DatiCalcolo.IdRimborso)
     @Html.HiddenFor(model => model.DatiCalcolo.SocioID)
     @Html.HiddenFor(model => model.DatiCalcolo.Nome)
     @Html.HiddenFor(model => model.DatiCalcolo.Cognome)

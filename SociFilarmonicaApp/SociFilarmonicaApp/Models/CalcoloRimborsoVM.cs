@@ -6,16 +6,25 @@ using System.Threading.Tasks;
 
 namespace SociFilarmonicaApp.Models
 {
-    public class CalcoloRimborsoVM
+    public class ElementoRimborsoVm
+    {
+        public int? IdRimborso { get; set; }
+        public int SocioID { get; set; }
+        public string Nome { get; set; }
+        public string Cognome { get; set; }
+        [Display(Name = "Data creazione")]
+        public DateTime DataCreazione { get; set; }
+        [Display(Name = "Data ultima modifica")]
+        public DateTime DataUltimaModifica { get; set; }
+        public string Descrizione { get; set; }
+    }
+    public class CalcoloRimborsoVM : ElementoRimborsoVm
     {
         public CalcoloRimborsoVM()
         {
             ListaProve = new List<DateTime>();
             AltriCosti = new List<CalcoloRimborsoAltriCostiVM>();
         }
-        public int SocioID { get; set; }
-        public string Nome { get; set; }
-        public string Cognome { get; set; }
         [Required]
         [Display(Name = "Prove a cui ha partecipato")]
         [DataType(DataType.Date)]

@@ -9,7 +9,7 @@ using SociFilarmonicaApp.Data;
 namespace SociFilarmonicaApp.Migrations
 {
     [DbContext(typeof(FilarmonicaContext))]
-    [Migration("20200912233152_InitialCreate")]
+    [Migration("20200913101236_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -86,6 +86,10 @@ namespace SociFilarmonicaApp.Migrations
 
                     b.Property<string>("DatiRimborsoSerializzati")
                         .HasColumnType("TEXT");
+
+                    b.Property<string>("Descrizione")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(100);
 
                     b.Property<int>("SocioID")
                         .HasColumnType("INTEGER");

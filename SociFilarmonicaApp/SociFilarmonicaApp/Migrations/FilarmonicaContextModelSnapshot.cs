@@ -85,6 +85,10 @@ namespace SociFilarmonicaApp.Migrations
                     b.Property<string>("DatiRimborsoSerializzati")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Descrizione")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(100);
+
                     b.Property<int>("SocioID")
                         .HasColumnType("INTEGER");
 

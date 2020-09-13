@@ -2,47 +2,139 @@
 @model SociFilarmonicaApp.Pages.StoricoRimborsi.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Storico rimborsi";
 }
 
-<h1>Index</h1>
+<h1>@ViewData["Title"]</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
+<form asp-page="./Index" method="get">
+    <div class="row">
+        <div class="col-md-4 offset-8">
+            <div class="input-group">
+                <input type="text" name="SearchString" value="@Model.CurrentFilter" class="form-control" placeholder="Cerca..." />
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+            <a asp-page="./Index">Torna alla lista completa</a>
+        </div>
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.RimborsoKm[0].DataCreazione)
+
+                <a asp-page="./Index" asp-route-sortOrder="@Model.DescrizioneSort"
+                   asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.RimborsoKm[0].Descrizione)
+                    @if ("Descrizione_desc".Equals(Model.CurrentSort, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        <i class="fa fa-caret-down"></i>
+                    }
+                    else if ("Descrizione".Equals(Model.CurrentSort, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        <i class="fa fa-caret-up"></i>
+                    }
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RimborsoKm[0].DataUltimaModifica)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.SocioSort"
+                   asp-route-currentFilter="@Model.CurrentFilter">
+                    Socio
+                    @if ("Cognome_desc".Equals(Model.CurrentSort, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        <i class="fa fa-caret-down"></i>
+                    }
+                    else if ("Cognome".Equals(Model.CurrentSort, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        <i class="fa fa-caret-up"></i>
+                    }
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RimborsoKm[0].DatiRimborsoSerializzati)
+
+                <a asp-page="./Index" asp-route-sortOrder="@Model.DataCreazioneSort"
+                   asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.RimborsoKm[0].DataCreazione)
+                    @if ("DataCreazione_desc".Equals(Model.CurrentSort, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        <i class="fa fa-caret-down"></i>
+                    }
+                    else if (string.IsNullOrWhiteSpace(Model.CurrentSort))
+                    {
+                        <i class="fa fa-caret-up"></i>
+                    }
+                </a>
+            </th>
+            <th>
+
+                <a asp-page="./Index" asp-route-sortOrder="@Model.DataUltimaModificaSort"
+                   asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.RimborsoKm[0].DataUltimaModifica)
+                    @if ("DataUltimaModifica_desc".Equals(Model.CurrentSort, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        <i class="fa fa-caret-down"></i>
+                    }
+                    else if ("DataUltimaModifica".Equals(Model.CurrentSort, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        <i class="fa fa-caret-up"></i>
+                    }
+                </a>
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.RimborsoKm) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataCreazione)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataUltimaModifica)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DatiRimborsoSerializzati)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.RimborsoKm)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descrizione)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cognome) @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataCreazione)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataUltimaModifica)
+                </td>
+                <td>
+                    <div class="btn-group btn-group-sm">
+                        <a class="btn btn-secondary" asp-page="./Edit" asp-route-id="@item.IdRimborso"><i class="fa fa-edit"></i></a>
+                        <a class="btn btn-secondary" asp-page="./Details" asp-route-id="@item.IdRimborso"><i class="fa fa-info"></i></a>
+                        <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.IdRimborso"><i class="fa fa-trash"></i></a>
+                    </div>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@{
+    var prevDisabled = !Model.RimborsoKm.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.RimborsoKm.HasNextPage ? "disabled" : "";
+}
+
+<div class="btn-group">
+    <a asp-page="./Index"
+       asp-route-sortOrder="@Model.CurrentSort"
+       asp-route-pageIndex="@(Model.RimborsoKm.PageIndex - 1)"
+       asp-route-currentFilter="@Model.CurrentFilter"
+       class="btn btn-primary @prevDisabled">
+        &lt;
+    </a>
+    <div class="btn">
+        @Model.RimborsoKm.PageIndex di @Model.RimborsoKm.TotalPages (@Model.RimborsoKm.TotalElements elementi)
+    </div>
+    <a asp-page="./Index"
+       asp-route-sortOrder="@Model.CurrentSort"
+       asp-route-pageIndex="@(Model.RimborsoKm.PageIndex + 1)"
+       asp-route-currentFilter="@Model.CurrentFilter"
+       class="btn btn-primary @nextDisabled">
+        &gt;
+    </a>
+</div>

@@ -46,11 +46,11 @@ namespace SociFilarmonicaApp.Data
 #if DEBUG
             var soci = new Socio[]
             {
-                new Socio { Nome = "Mario", Cognome = "Rossi", Telefono = "001 1234", Email = "example@example.com", TipologiaSocioID = 1 }
-                ,new Socio { Nome = "Luigi", Cognome = "Rossi", Telefono = "001 1234", Email = "example@example.com", TipologiaSocioID = 1 }
-                ,new Socio { Nome = "Carla", Cognome = "Bianchi", Telefono = "001 1234", Email = "example@example.com", TipologiaSocioID = 3 }
-                ,new Socio { Nome = "Lucia", Cognome = "Mondella", Telefono = "001 1234", Email = "example@example.com", TipologiaSocioID = 1 }
-                ,new Socio { Nome = "Lorenzo", Cognome = "De Medici", Telefono = "001 1234", Email = "example@example.com", TipologiaSocioID = 2 }
+                new Socio { Nome = "Mario", Cognome = "Rossi", Telefono = "001 1234", Email = "example@example.com", TipologiaSocioID = 1, NumeroSocio = 1234 }
+                ,new Socio { Nome = "Luigi", Cognome = "Rossi", Telefono = "001 1234", Email = "example@example.com", TipologiaSocioID = 1, NumeroSocio = 5678 }
+                ,new Socio { Nome = "Carla", Cognome = "Bianchi", Telefono = "001 1234", Email = "example@example.com", TipologiaSocioID = 3, NumeroSocio = 9012 }
+                ,new Socio { Nome = "Lucia", Cognome = "Mondella", Telefono = "001 1234", Email = "example@example.com", TipologiaSocioID = 1, NumeroSocio = 3456 }
+                ,new Socio { Nome = "Lorenzo", Cognome = "De Medici", Telefono = "001 1234", Email = "example@example.com", TipologiaSocioID = 2, NumeroSocio = 7890 }
             };
 
             foreach (var item in soci)

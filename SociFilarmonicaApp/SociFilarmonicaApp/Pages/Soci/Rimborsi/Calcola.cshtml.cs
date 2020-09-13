@@ -22,15 +22,16 @@ namespace SociFilarmonicaApp
         [BindProperty]
         public CalcoloRimborsoVM DatiCalcolo { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int? idSocio)
         {
-            if (id == null)
+            if (idSocio == null)
             {
                 return NotFound();
             }
+
             var socio = await _context.Soci
                 .Include(x => x.DatiAuto)
-                .FirstOrDefaultAsync(x => x.ID == id);
+                .FirstOrDefaultAsync(x => x.ID == idSocio);
 
             if (socio == null || socio.DatiAutoID == null)
             {
