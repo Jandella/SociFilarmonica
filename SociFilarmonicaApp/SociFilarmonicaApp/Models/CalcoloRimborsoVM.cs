@@ -17,6 +17,8 @@ namespace SociFilarmonicaApp.Models
         [Display(Name = "Data ultima modifica")]
         public DateTime DataUltimaModifica { get; set; }
         public string Descrizione { get; set; }
+        [Display(Name = "Totale dovuto")]
+        public decimal TotaleDovuto { get; set; }
     }
     public class CalcoloRimborsoVM : ElementoRimborsoVm
     {
@@ -47,8 +49,7 @@ namespace SociFilarmonicaApp.Models
         public List<CalcoloRimborsoAltriCostiVM> AltriCosti { get; set; }
         [Display(Name = "Totale")]
         public decimal TotaleReale { get; set; }
-        [Display(Name = "Totale dovuto")]
-        public decimal TotaleDovuto { get; set; }
+        
 
         public decimal Calcola()
         {
@@ -56,6 +57,22 @@ namespace SociFilarmonicaApp.Models
             var totaleAndataRitorno = NumeroProve * andataRitornoPerUnaProva;
             var costiAggiuntivi = AltriCosti?.Sum(x => x.Costo) ?? 0;
             return totaleAndataRitorno + costiAggiuntivi;
+        }
+        public string GeneraDescrizione()
+        {
+            if (!string.IsNullOrEmpty(Descrizione))
+                return Descrizione;
+            string desc = "Rimborso spesa per socio";
+            if (!ListaProve.Any())
+            {
+                return desc;
+            }
+            desc = $"Rimborso per prove dal {ListaProve.First():dd/MM/yyyy}";
+            if(ListaProve.Count >= 2)
+            {
+                desc += $" al {ListaProve.Last():dd/MM/yyyy}";
+            }
+            return desc;
         }
 
         
@@ -65,4 +82,6 @@ namespace SociFilarmonicaApp.Models
         public string Descrizione { get; set; }
         public decimal Costo { get; set; }
     }
+
+    
 }

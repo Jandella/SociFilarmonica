@@ -9,7 +9,7 @@ using SociFilarmonicaApp.Data;
 namespace SociFilarmonicaApp.Migrations
 {
     [DbContext(typeof(FilarmonicaContext))]
-    [Migration("20200913101236_InitialCreate")]
+    [Migration("20200913122232_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -93,6 +93,9 @@ namespace SociFilarmonicaApp.Migrations
 
                     b.Property<int>("SocioID")
                         .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("TotaleDovuto")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("ID");
 

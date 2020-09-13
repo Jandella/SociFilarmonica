@@ -118,6 +118,7 @@ namespace SociFilarmonicaApp.Migrations
                     Descrizione = table.Column<string>(maxLength: 100, nullable: true),
                     DataCreazione = table.Column<DateTime>(nullable: false),
                     DataUltimaModifica = table.Column<DateTime>(nullable: false),
+                    TotaleDovuto = table.Column<decimal>(nullable: false),
                     DatiRimborsoSerializzati = table.Column<string>(nullable: true)
                 },
                 constraints: table =>

@@ -58,7 +58,8 @@ namespace SociFilarmonicaApp.Pages.StoricoRimborsi
                     Descrizione = x.Descrizione,
                     IdRimborso = x.ID,
                     Nome = x.Socio.Nome,
-                    SocioID = x.SocioID
+                    SocioID = x.SocioID,
+                    TotaleDovuto = x.TotaleDovuto
                 });
 
 

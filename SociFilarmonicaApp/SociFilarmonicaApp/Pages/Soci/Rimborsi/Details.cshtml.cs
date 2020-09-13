@@ -7,14 +7,15 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using SociFilarmonicaApp.Data;
 using SociFilarmonicaApp.Data.DbModels;
+using SociFilarmonicaApp.Pages.Soci.Rimborsi;
 
 namespace SociFilarmonicaApp.Pages.StoricoRimborsi
 {
-    public class DetailsModel : PageModel
+    public class DetailsModel : ExportRimborsoPageModel
     {
-        private readonly SociFilarmonicaApp.Data.FilarmonicaContext _context;
+        private readonly FilarmonicaContext _context;
 
-        public DetailsModel(SociFilarmonicaApp.Data.FilarmonicaContext context)
+        public DetailsModel(FilarmonicaContext context)
         {
             _context = context;
         }

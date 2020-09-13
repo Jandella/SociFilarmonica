@@ -92,6 +92,9 @@ namespace SociFilarmonicaApp.Migrations
                     b.Property<int>("SocioID")
                         .HasColumnType("INTEGER");
 
+                    b.Property<decimal>("TotaleDovuto")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("ID");
 
                     b.HasIndex("SocioID");
