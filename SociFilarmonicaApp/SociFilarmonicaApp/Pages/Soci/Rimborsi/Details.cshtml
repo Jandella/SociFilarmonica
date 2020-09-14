@@ -32,5 +32,17 @@
     </dl>
 </div>
 <div>
+    <button type="button" id="export-excel" class="btn btn-secondary float-right"><i class="fa fa-file-export"></i> Esporta </button>
+</div>
+<div>
     <a asp-page="./Index">Torna alla lista</a>
 </div>
+
+<script type="text/javascript">
+    (function () {
+        const { ipcRenderer } = require("electron");
+        document.getElementById("export-excel").addEventListener("click", () => {
+            ipcRenderer.send("export-excel-calcola");
+        });
+    }());
+</script>

@@ -24,11 +24,16 @@ namespace SociFilarmonicaApp.Pages.StoricoRimborsi
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
+            ExcelExport();
+
             if (id == null)
             {
                 return NotFound();
             }
+            await GetExisting(id.Value, _context);
 
+
+            //todo: togli questo e visualizza i DatiCalcolo
             RimborsoKm = await _context.RimborsoKm.FirstOrDefaultAsync(m => m.ID == id);
 
             if (RimborsoKm == null)

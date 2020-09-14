@@ -8,6 +8,7 @@ using ElectronNET.API;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using SociFilarmonicaApp.Data;
 using SociFilarmonicaApp.Models;
 using SociFilarmonicaApp.Pages;
@@ -18,16 +19,21 @@ namespace SociFilarmonicaApp
     public class CalcolaModel : ExportRimborsoPageModel
     {
         private readonly FilarmonicaContext _context;
+        private readonly ILogger<CalcolaModel> _logger;
 
-        public CalcolaModel(FilarmonicaContext context)
+        public CalcolaModel(FilarmonicaContext context, ILogger<CalcolaModel> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public async Task<IActionResult> OnGetAsync(int? idSocio, int? idRimborso)
         {
+            _logger.LogInformation("OnGetAsync: idSocio = {0}, idRimborso ={1}", idSocio, idRimborso);
+            ExcelExport();
             if (idSocio == null && idRimborso == null)
             {
+                _logger.LogInformation("params null, return NOT FOUND");
                 return NotFound();
             }
 
@@ -35,7 +41,7 @@ namespace SociFilarmonicaApp
             {
                 if (idRimborso != null)
                 {
-                    await GetExisting(idRimborso.Value);
+                    await GetExisting(idRimborso.Value, _context);
                 }
                 else if (idSocio != null)
                 {
@@ -78,59 +84,7 @@ namespace SociFilarmonicaApp
                 AltriCosti = new List<CalcoloRimborsoAltriCostiVM> { new CalcoloRimborsoAltriCostiVM() }
             };
         }
-        private async Task GetExisting(int idRimborso)
-        {
-            var rimborso = await _context.RimborsoKm
-                .Include(x => x.Socio)
-                .SingleOrDefaultAsync(x => x.ID == idRimborso);
-            if (rimborso == null)
-            {
-                throw new KeyNotFoundException($"Rimborso con chiave {idRimborso} non trovato.");
-            }
-            rimborso.DatiDaSerializzare = JsonSerializer.Deserialize<Data.DbModels.DatiCalcoloDaSerializzare>(rimborso.DatiRimborsoSerializzati);
-
-            DatiCalcolo = new CalcoloRimborsoVM()
-            {
-                IdRimborso = rimborso.ID,
-                SocioID = rimborso.SocioID,
-                Cognome = rimborso.Socio.Cognome,
-                Nome = rimborso.Socio.Nome,
-                Carburante = rimborso.DatiDaSerializzare.Carburante,
-                DescrizioneMacchina = rimborso.DatiDaSerializzare.DescrizioneMacchina,
-                Distanza = 0,
-                InfoAutoID = rimborso.DatiDaSerializzare.InfoAutoID,
-                RimborsoKm = rimborso.DatiDaSerializzare.RimborsoKm,
-                TargaMacchina = rimborso.DatiDaSerializzare.TargaMacchina,
-                TipoAuto = rimborso.DatiDaSerializzare.TipoAuto,
-                ListaProve = rimborso.DatiDaSerializzare.ListaProve,
-                Descrizione = rimborso.Descrizione,
-                TotaleReale = rimborso.DatiDaSerializzare.TotaleReale,
-                TotaleDovuto = rimborso.DatiDaSerializzare.TotaleDovuto
-            };
-            //manage null lists
-            if (DatiCalcolo.ListaProve == null || !DatiCalcolo.ListaProve.Any())
-            {
-                DatiCalcolo.ListaProve = new List<DateTime>
-                {
-                    DateTime.Now.Date
-                };
-            }
-            if (rimborso.DatiDaSerializzare.AltriCosti == null || !rimborso.DatiDaSerializzare.AltriCosti.Any())
-            {
-                DatiCalcolo.AltriCosti = new List<CalcoloRimborsoAltriCostiVM>() {
-                    new CalcoloRimborsoAltriCostiVM()
-                };
-            }
-            else
-            {
-                DatiCalcolo.AltriCosti = rimborso.DatiDaSerializzare.AltriCosti
-                .Select(x => new CalcoloRimborsoAltriCostiVM
-                {
-                    Costo = x.Costo,
-                    Descrizione = x.Descrizione
-                }).ToList();
-            }
-        }
+        
 
 
         public IActionResult OnPostAddDataProva()

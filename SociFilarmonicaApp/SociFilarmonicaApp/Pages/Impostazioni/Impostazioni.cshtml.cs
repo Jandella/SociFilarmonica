@@ -9,15 +9,18 @@ using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml;
 using ElectronNET.API;
 using ElectronNET.API.Entities;
+using Microsoft.Extensions.Logging;
 
 namespace SociFilarmonicaApp
 {
     public class ImpostazioniModel : PageModel
     {
         private readonly Data.FilarmonicaContext _context;
-        public ImpostazioniModel(Data.FilarmonicaContext context)
+        private readonly ILogger<ImpostazioniModel> _logger;
+        public ImpostazioniModel(Data.FilarmonicaContext context, ILogger<ImpostazioniModel> logger)
         {
             _context = context;
+            _logger = logger;
         }
         public async Task OnGetAsync()
         {
@@ -28,7 +31,7 @@ namespace SociFilarmonicaApp
                             .Include(x => x.Tipologia)
                             .Include(x => x.DatiAuto)
                             .AsNoTracking().ToListAsync();
-
+                _logger.LogInformation("Esporto soci");
                 Electron.IpcMain.On("export-excel", async (args) =>
                 {
                     BrowserWindow mainWindow = Electron.WindowManager.BrowserWindows.First();
@@ -47,7 +50,7 @@ namespace SociFilarmonicaApp
 
                     var path = await Electron.Dialog.ShowSaveDialogAsync(mainWindow, saveOptions);
 
-                    if (!string.IsNullOrEmpty(path))
+                    if (string.IsNullOrEmpty(path))
                     {
                         return;
                     }

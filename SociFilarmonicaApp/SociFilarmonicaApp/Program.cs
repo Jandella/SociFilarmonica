@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NLog.Web;
 using SociFilarmonicaApp.Data;
 
 namespace SociFilarmonicaApp
@@ -17,9 +18,23 @@ namespace SociFilarmonicaApp
     {
         public static void Main(string[] args)
         {
-            var host = CreateHostBuilder(args).Build();
-            CreateDbIfNotExists(host);
-            host.Run();
+            var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
+
+            try
+            {
+                var host = CreateHostBuilder(args).Build();
+                CreateDbIfNotExists(host);
+                host.Run();
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Error in init");
+                throw;
+            }
+            finally
+            {
+                NLog.LogManager.Shutdown();
+            }
         }
 
 
@@ -48,6 +63,12 @@ namespace SociFilarmonicaApp
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.ConfigureLogging(logging =>
+                    {
+                        logging.ClearProviders();
+                        logging.SetMinimumLevel(LogLevel.Information);
+                    })
+                    .UseNLog();
                     webBuilder.UseElectron(args);
                 });
     }
