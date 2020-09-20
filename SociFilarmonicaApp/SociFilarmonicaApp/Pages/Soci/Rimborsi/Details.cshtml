@@ -2,34 +2,74 @@
 @model SociFilarmonicaApp.Pages.StoricoRimborsi.DetailsModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Dettagli rimborso";
 }
 
-<h1>Details</h1>
+<h1>@ViewData["Title"]</h1>
 
 <div>
-    <h4>RimborsoKm</h4>
+    <h4>@Model.DatiCalcolo.Descrizione di @Model.DatiCalcolo.Nome @Model.DatiCalcolo.Cognome</h4>
     <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.RimborsoKm.DataCreazione)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.RimborsoKm.DataCreazione)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.RimborsoKm.DataUltimaModifica)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.RimborsoKm.DataUltimaModifica)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.RimborsoKm.DatiRimborsoSerializzati)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.RimborsoKm.DatiRimborsoSerializzati)
-        </dd>
-    </dl>
+    <div class="row">
+        <div class="col-md-12">
+            <p class="text-right">Creato il @Html.DisplayFor(model => model.RimborsoKm.DataCreazione) - Ultima modifica: @Html.DisplayFor(model => model.RimborsoKm.DataUltimaModifica)</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <fieldset>
+                <legend>Lista prove/Evento</legend>
+                <ul class="lead">
+                    @foreach (var item in Model.DatiCalcolo.ListaProve)
+                    {
+                        <li>@item.ToString("dd/MM/yyyy")</li>
+                    }
+                </ul>
+            </fieldset>
+        </div>
+        <div class="col-md-6">
+            <fieldset>
+                <legend>Altri costi</legend>
+                @if (Model.DatiCalcolo.AltriCosti.Any() && Model.DatiCalcolo.AltriCosti.First().Costo != 0)
+                {
+                    <ul>
+                        @foreach (var item in Model.DatiCalcolo.AltriCosti)
+                        {
+                            <li>@(item.Descrizione) - @(item.Costo)</li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p>Nessuno.</p>
+                }
+            </fieldset>
+        </div>
+    </div>
+
+    <fieldset>
+        <legend>Riepilogo</legend>
+        <dl class="row">
+            <dt class="col-2">Dati auto:</dt>
+            <dd class="col-10">@Html.DisplayFor(model => model.DatiCalcolo.DescrizioneMacchina), targa @Html.DisplayFor(model => model.DatiCalcolo.TargaMacchina). Categoria @Html.DisplayFor(model => model.DatiCalcolo.TipoAuto) - @Html.DisplayFor(model => model.DatiCalcolo.Carburante)</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-2">Rimborso per Km:</dt>
+            <dd class="col-10">@Html.DisplayFor(model => model.DatiCalcolo.RimborsoKm)</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-2">Distanza casa-sede:</dt>
+            <dd class="col-10">@Html.DisplayFor(model => model.DatiCalcolo.Distanza)</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-2">@Html.DisplayNameFor(model => model.DatiCalcolo.TotaleReale)</dt>
+            <dd class="col-10">@Html.DisplayFor(model => model.DatiCalcolo.TotaleReale)</dd>
+        </dl>
+        <dl class="row bg-warning">
+            <dt class="col-2">@Html.DisplayNameFor(model => model.DatiCalcolo.TotaleDovuto)</dt>
+            <dd class="col-10">@Html.DisplayFor(model => model.DatiCalcolo.TotaleDovuto)</dd>
+        </dl>
+    </fieldset>
 </div>
 <div>
     <button type="button" id="export-excel" class="btn btn-secondary float-right"><i class="fa fa-file-export"></i> Esporta </button>

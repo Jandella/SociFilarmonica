@@ -43,8 +43,8 @@
     <div class="form-row">
         <div class="col-md-6 pr-3">
             <fieldset>
-                <legend>Lista prove</legend>
-                <div class="form-group">
+                <legend>Lista prove/Evento</legend>
+                <div class="form-group form-row">
                     <div class="col-11">
                         <input asp-for="DatiCalcolo.ListaProve[0]" type="date" class="form-control" />
                         <span asp-validation-for="DatiCalcolo.ListaProve[0]" class="text-danger"></span>
@@ -77,7 +77,7 @@
                 <legend>
                     Altri costi (opzionale)
                 </legend>
-                <div class="form-row border-bottom m-1">
+                <div class="form-row m-1">
                     <div class="form-group col-md-6">
                         <label asp-for="DatiCalcolo.AltriCosti[0].Descrizione" class="control-label"></label>
                         <input asp-for="DatiCalcolo.AltriCosti[0].Descrizione" class="form-control" />
@@ -91,14 +91,12 @@
                 </div>
                 @for (int i = 1; i < Model.DatiCalcolo.AltriCosti.Count; i++)
                 {
-                    <div class="form-row border-bottom m-1">
+                    <div class="form-row m-1">
                         <div class="form-group col-md-6">
-                            <label asp-for="DatiCalcolo.AltriCosti[i].Descrizione" class="control-label"></label>
                             <input asp-for="DatiCalcolo.AltriCosti[i].Descrizione" class="form-control" />
                             <span asp-validation-for="DatiCalcolo.AltriCosti[i].Descrizione" class="text-danger"></span>
                         </div>
                         <div class="form-group col-md-5">
-                            <label asp-for="DatiCalcolo.AltriCosti[i].Costo" class="control-label"></label>
                             <input asp-for="DatiCalcolo.AltriCosti[i].Costo" class="form-control" />
                             <span asp-validation-for="DatiCalcolo.AltriCosti[i].Costo" class="text-danger"></span>
                         </div>
