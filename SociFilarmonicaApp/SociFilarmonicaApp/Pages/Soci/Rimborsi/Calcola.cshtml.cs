@@ -62,6 +62,10 @@ namespace SociFilarmonicaApp
             var socio = await _context.Soci
                 .Include(x => x.DatiAuto)
                 .FirstOrDefaultAsync(x => x.ID == idSocio);
+            var anagrafica = await _context.GetAnagrafica();
+            string sede = anagrafica.Citta;
+            if (string.IsNullOrEmpty(sede))
+                sede = "sede";
 
             if (socio == null || socio.DatiAutoID == null)
             {
@@ -76,6 +80,7 @@ namespace SociFilarmonicaApp
                 Carburante = socio.DatiAuto.Carburante,
                 DescrizioneMacchina = socio.DescrizioneMacchina,
                 Distanza = 0,
+                DescrizioneItinerario = $"{socio.Citta} - {sede} e ritorno",
                 InfoAutoID = socio.DatiAutoID.Value,
                 RimborsoKm = socio.DatiAuto.RimborsoKm,
                 TargaMacchina = socio.TargaMacchina,
@@ -83,6 +88,7 @@ namespace SociFilarmonicaApp
                 ListaProve = new List<DateTime> { DateTime.Now.Date },
                 AltriCosti = new List<CalcoloRimborsoAltriCostiVM> { new CalcoloRimborsoAltriCostiVM() }
             };
+            DatiCalcolo.Descrizione = DatiCalcolo.GeneraDescrizione();
         }
         
 
@@ -151,6 +157,7 @@ namespace SociFilarmonicaApp
                 DescrizioneMacchina = DatiCalcolo.DescrizioneMacchina,
                 Distanza = DatiCalcolo.Distanza,
                 InfoAutoID = DatiCalcolo.InfoAutoID,
+                DescrizioneItinerario = DatiCalcolo.DescrizioneItinerario,
                 ListaProve = DatiCalcolo.ListaProve,
                 RimborsoKm = DatiCalcolo.RimborsoKm,
                 TargaMacchina = DatiCalcolo.TargaMacchina,

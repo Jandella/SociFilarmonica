@@ -31,6 +31,7 @@ namespace SociFilarmonicaApp.Data.DbModels
         public decimal Distanza { get; set; }
 
         public string TargaMacchina { get; set; }
+        public string DescrizioneItinerario { get; set; }
 
         public string DescrizioneMacchina { get; set; }
         public int InfoAutoID { get; set; }

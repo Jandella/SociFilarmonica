@@ -28,6 +28,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Data\SF.db" />
+    <None Remove="wwwroot\ExcelTemplates\Template_RimborsoSpeseViaggio.xlsx" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ElectronNET.API" Version="9.31.2" />
@@ -51,7 +52,13 @@
     <PackageReference Include="NLog.Web.AspNetCore" Version="4.9.3" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="wwwroot\ExcelTemplates\Template_RimborsoSpeseViaggio.xlsx" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Update="electron.manifest.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\ExcelTemplates\Template_RimborsoSpeseViaggio.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

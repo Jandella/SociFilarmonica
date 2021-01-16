@@ -44,6 +44,7 @@ namespace SociFilarmonicaApp.Pages.Soci.Rimborsi
                 Carburante = rimborso.DatiDaSerializzare.Carburante,
                 DescrizioneMacchina = rimborso.DatiDaSerializzare.DescrizioneMacchina,
                 Distanza = 0,
+                DescrizioneItinerario = rimborso.DatiDaSerializzare.DescrizioneItinerario,
                 InfoAutoID = rimborso.DatiDaSerializzare.InfoAutoID,
                 RimborsoKm = rimborso.DatiDaSerializzare.RimborsoKm,
                 TargaMacchina = rimborso.DatiDaSerializzare.TargaMacchina,

@@ -33,7 +33,9 @@ namespace SociFilarmonicaApp.Models
         public List<DateTime> ListaProve { get; set; }
         [Display(Name = "Numero prove")]
         public int NumeroProve => ListaProve?.Count ?? 0;
-        [Display(Name = "Distanza casa-sede")]
+        [Display(Name = "Descrizione itinerario")]
+        public string DescrizioneItinerario { get; set; }
+        [Display(Name = "Distanza itinerario (Km)")]
         public decimal Distanza { get; set; }
         [Display(Name = "Targa")]
         public string TargaMacchina { get; set; }
@@ -51,6 +53,11 @@ namespace SociFilarmonicaApp.Models
         public decimal TotaleReale { get; set; }
         
 
+        /// <summary>
+        /// Calcola il rimborso come numero di prove per il costo di viaggio andata e ritorno più somma degli altri costi.
+        /// <see cref="Distanza"/> * 2 * <see cref="RimborsoKm"/> * <see cref="NumeroProve"/> + <see cref=" AltriCosti"/>
+        /// </summary>
+        /// <returns></returns>
         public decimal Calcola()
         {
             var andataRitornoPerUnaProva = Distanza * 2 * RimborsoKm;
@@ -58,6 +65,10 @@ namespace SociFilarmonicaApp.Models
             var costiAggiuntivi = AltriCosti?.Sum(x => x.Costo) ?? 0;
             return totaleAndataRitorno + costiAggiuntivi;
         }
+        /// <summary>
+        /// Aiuto per generare la descrizione
+        /// </summary>
+        /// <returns></returns>
         public string GeneraDescrizione()
         {
             if (!string.IsNullOrEmpty(Descrizione))

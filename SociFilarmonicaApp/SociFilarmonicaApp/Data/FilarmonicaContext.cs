@@ -19,6 +19,7 @@ namespace SociFilarmonicaApp.Data
         public DbSet<InfoAuto> InfoAutomobili { get; set; }
         public DbSet<RimborsoKm> RimborsoKm { get; set; }
         public DbSet<Quote> QuoteAssociative { get; set; }
+        public DbSet<AnagraficaFilarmonica> Anagrafica { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,6 +29,7 @@ namespace SociFilarmonicaApp.Data
             modelBuilder.Entity<InfoAuto>().ToTable("InfoAuto");
             modelBuilder.Entity<RimborsoKm>().ToTable("Rimborsi");
             modelBuilder.Entity<Quote>().ToTable("Quote");
+            modelBuilder.Entity<AnagraficaFilarmonica>().ToTable("AnagraficaFilarmonica");
         }
 
         

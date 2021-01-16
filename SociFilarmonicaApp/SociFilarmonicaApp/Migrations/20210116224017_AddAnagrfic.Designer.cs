@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SociFilarmonicaApp.Data;
 
 namespace SociFilarmonicaApp.Migrations
 {
     [DbContext(typeof(FilarmonicaContext))]
-    partial class FilarmonicaContextModelSnapshot : ModelSnapshot
+    [Migration("20210116224017_AddAnagrfic")]
+    partial class AddAnagrfic
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

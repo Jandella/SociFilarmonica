@@ -6,10 +6,65 @@
 
 <h1>Impostazioni</h1>
 
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Dati anagrafici della filarmonica</h4>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label asp-for="Anagrafica.RagioneSociale" class="control-label"></label>
+                    <input asp-for="Anagrafica.RagioneSociale" class="form-control" />
+                    <span asp-validation-for="Anagrafica.RagioneSociale" class="text-danger"></span>
+                </div>
+                
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label asp-for="Anagrafica.Indirizzo" class="control-label"></label>
+                    <input asp-for="Anagrafica.Indirizzo" class="form-control" />
+                    <span asp-validation-for="Anagrafica.Indirizzo" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="Anagrafica.Citta" class="control-label"></label>
+                    <input asp-for="Anagrafica.Citta" class="form-control" />
+                    <span asp-validation-for="Anagrafica.Citta" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="Anagrafica.Cap" class="control-label"></label>
+                    <input asp-for="Anagrafica.Cap" class="form-control" />
+                    <span asp-validation-for="Anagrafica.Cap" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label asp-for="Anagrafica.Tel" class="control-label"></label>
+                    <input asp-for="Anagrafica.Tel" class="form-control" />
+                    <span asp-validation-for="Anagrafica.Tel" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="Anagrafica.Email" class="control-label"></label>
+                    <input asp-for="Anagrafica.Email" class="form-control" />
+                    <span asp-validation-for="Anagrafica.Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-2">
+                    <input type="submit" value="Salva" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</form>
+
 <h4>Esporta dati</h4>
 
-<p>Esporta i dati in formato excel.</p>
+
+<p>Esporta i dati soci in formato excel.</p>
 <button id="export-excel" class="btn btn-primary">Esporta</button>
+<hr />
+
 
 <script>
             (function(){
