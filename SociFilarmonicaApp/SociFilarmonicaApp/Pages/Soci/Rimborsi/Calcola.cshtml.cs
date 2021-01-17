@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using ElectronNET.API;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -20,17 +21,19 @@ namespace SociFilarmonicaApp
     {
         private readonly FilarmonicaContext _context;
         private readonly ILogger<CalcolaModel> _logger;
+        private IWebHostEnvironment _env;
 
-        public CalcolaModel(FilarmonicaContext context, ILogger<CalcolaModel> logger)
+        public CalcolaModel(FilarmonicaContext context, IWebHostEnvironment env, ILogger<CalcolaModel> logger)
         {
             _context = context;
+            _env = env;
             _logger = logger;
         }
 
         public async Task<IActionResult> OnGetAsync(int? idSocio, int? idRimborso)
         {
             _logger.LogInformation("OnGetAsync: idSocio = {0}, idRimborso ={1}", idSocio, idRimborso);
-            ExcelExport();
+            AttachExcelExportAction(_env);
             if (idSocio == null && idRimborso == null)
             {
                 _logger.LogInformation("params null, return NOT FOUND");
@@ -63,7 +66,7 @@ namespace SociFilarmonicaApp
                 .Include(x => x.DatiAuto)
                 .FirstOrDefaultAsync(x => x.ID == idSocio);
             var anagrafica = await _context.GetAnagrafica();
-            string sede = anagrafica.Citta;
+            string sede = anagrafica?.Citta;
             if (string.IsNullOrEmpty(sede))
                 sede = "sede";
 
@@ -145,7 +148,7 @@ namespace SociFilarmonicaApp
                 _context.RimborsoKm.Add(inDb);
             }
             inDb.DataUltimaModifica = DateTime.Now;
-            inDb.Descrizione = DatiCalcolo.GeneraDescrizione();
+            inDb.Descrizione = DatiCalcolo.Descrizione;
             inDb.DatiDaSerializzare = new Data.DbModels.DatiCalcoloDaSerializzare
             {
                 AltriCosti = DatiCalcolo.AltriCosti.Select(x => new Data.DbModels.AltriCosti
@@ -171,10 +174,6 @@ namespace SociFilarmonicaApp
             return Page();
         }
 
-        public IActionResult OnPostGeneraExcel()
-        {
-            ExcelExport();
-            return Page();
-        }
+        
     }
 }

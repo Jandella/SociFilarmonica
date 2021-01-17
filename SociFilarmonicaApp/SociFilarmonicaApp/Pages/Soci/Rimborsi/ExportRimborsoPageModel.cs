@@ -1,5 +1,6 @@
 ﻿using ElectronNET.API;
 using ElectronNET.API.Entities;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using OfficeOpenXml;
 using SociFilarmonicaApp.Data;
 using SociFilarmonicaApp.Models;
+using SociFilarmonicaApp.Models.ExcelModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -79,7 +81,7 @@ namespace SociFilarmonicaApp.Pages.Soci.Rimborsi
             }
         }
 
-        public void ExcelExport()
+        public void AttachExcelExportAction(IWebHostEnvironment env)
         {
             if (HybridSupport.IsElectronActive)
             {
@@ -108,17 +110,8 @@ namespace SociFilarmonicaApp.Pages.Soci.Rimborsi
 
                         try
                         {
-                            //TODO: crea l'excel
-                            using (var p = new ExcelPackage())
-                            {
-
-                                var ws = p.Workbook.Worksheets.Add("Rimborso");
-                                int riga = 0;
-                                //TODO: metti i dati secondo il modello
-
-
-                                p.SaveAs(new FileInfo(path));
-                            }
+                            IExcelModel m = new RimborsoKmExcel(env, DatiCalcolo);
+                            await m.SaveAs(path);
                         }
                         catch (Exception ex)
                         {

@@ -17,8 +17,9 @@ namespace SociFilarmonicaApp.Models.ExcelModels
         public RimborsoKmExcel(IWebHostEnvironment env, CalcoloRimborsoVM rimborso)
         {
             DatiRimborso = rimborso ?? throw new ArgumentNullException("rimborso");
+            this.env = env;
         }
-        public RimborsoKmExcel(string intestazione1, string intestazione2, CalcoloRimborsoVM rimborsoVM) : this(rimborsoVM)
+        public RimborsoKmExcel(IWebHostEnvironment env, string intestazione1, string intestazione2, CalcoloRimborsoVM rimborsoVM) : this(env, rimborsoVM)
         {
             Intestazione1 = intestazione1;
             Intestazione2 = intestazione2;

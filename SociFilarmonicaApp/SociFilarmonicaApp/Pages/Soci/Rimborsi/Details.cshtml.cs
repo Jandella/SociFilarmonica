@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -14,25 +15,23 @@ namespace SociFilarmonicaApp.Pages.StoricoRimborsi
     public class DetailsModel : ExportRimborsoPageModel
     {
         private readonly FilarmonicaContext _context;
-
-        public DetailsModel(FilarmonicaContext context)
+        private readonly IWebHostEnvironment _env;
+        public DetailsModel(IWebHostEnvironment env, FilarmonicaContext context)
         {
             _context = context;
+            _env = env;
         }
 
         public RimborsoKm RimborsoKm { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            ExcelExport();
+            AttachExcelExportAction(_env);
 
             if (id == null)
             {
                 return NotFound();
             }
-            await GetExisting(id.Value, _context);
-
-
             //todo: togli questo e visualizza i DatiCalcolo
             RimborsoKm = await _context.RimborsoKm.FirstOrDefaultAsync(m => m.ID == id);
 
@@ -40,6 +39,7 @@ namespace SociFilarmonicaApp.Pages.StoricoRimborsi
             {
                 return NotFound();
             }
+            await GetExisting(id.Value, _context);
             return Page();
         }
     }
