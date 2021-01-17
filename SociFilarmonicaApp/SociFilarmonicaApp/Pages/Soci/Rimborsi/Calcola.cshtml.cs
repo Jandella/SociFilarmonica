@@ -19,7 +19,7 @@ namespace SociFilarmonicaApp
 {
     public class CalcolaModel : ExportRimborsoPageModel
     {
-        private readonly FilarmonicaContext _context;
+        protected readonly FilarmonicaContext _context;
         private readonly ILogger<CalcolaModel> _logger;
         private IWebHostEnvironment _env;
 
@@ -33,7 +33,8 @@ namespace SociFilarmonicaApp
         public async Task<IActionResult> OnGetAsync(int? idSocio, int? idRimborso)
         {
             _logger.LogInformation("OnGetAsync: idSocio = {0}, idRimborso ={1}", idSocio, idRimborso);
-            AttachExcelExportAction(_env);
+            var ana = await _context.GetAnagrafica();
+            AttachExcelExportAction(_env, ana);
             if (idSocio == null && idRimborso == null)
             {
                 _logger.LogInformation("params null, return NOT FOUND");

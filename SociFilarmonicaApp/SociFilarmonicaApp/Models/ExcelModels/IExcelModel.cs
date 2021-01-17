@@ -16,7 +16,7 @@ namespace SociFilarmonicaApp.Models.ExcelModels
         /// <returns></returns>
         public static string GetTemplatePath(IWebHostEnvironment env)
         {
-            return System.IO.Path.Combine(env.ContentRootPath, Folder);
+            return System.IO.Path.Combine(env.WebRootPath, Folder);
         }
     }
     public interface IExcelModel

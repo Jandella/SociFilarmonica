@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using NLog;
 
 namespace SociFilarmonicaApp.Models.ExcelModels
 {
@@ -13,7 +14,9 @@ namespace SociFilarmonicaApp.Models.ExcelModels
     /// </summary>
     public class RimborsoKmExcel : IExcelModel
     {
-        private IWebHostEnvironment env;
+        private readonly IWebHostEnvironment env;
+        private static readonly NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
+
         public RimborsoKmExcel(IWebHostEnvironment env, CalcoloRimborsoVM rimborso)
         {
             DatiRimborso = rimborso ?? throw new ArgumentNullException("rimborso");
@@ -38,6 +41,7 @@ namespace SociFilarmonicaApp.Models.ExcelModels
         public string TotaleCostoKmPlaceHolder => "G16";
         public string ModelloAutoPlaceHolder => "D18";
         public string AlimentazionePlaceHolder => "D19";
+        public string TotaleRealePlaceHolder => "G31";
 
         private readonly string FileName = "Template_RimborsoSpeseViaggio.xlsx";
 
@@ -46,6 +50,7 @@ namespace SociFilarmonicaApp.Models.ExcelModels
             return Task.Run(() => 
             {
                 var templatePath = Path.Combine(ExcelModelConstant.GetTemplatePath(env), FileName);
+                _logger.Debug(templatePath);
                 using (var p = new ExcelPackage(new FileInfo(templatePath)))
                 {
                     ComponiFile(p);
@@ -60,6 +65,7 @@ namespace SociFilarmonicaApp.Models.ExcelModels
             return Task.Run(() =>
             {
                 var templatePath = Path.Combine(ExcelModelConstant.GetTemplatePath(env), FileName);
+                _logger.Debug(templatePath);
                 using (var p = new ExcelPackage(new FileInfo(templatePath)))
                 {
                     ComponiFile(p);
@@ -71,28 +77,37 @@ namespace SociFilarmonicaApp.Models.ExcelModels
 
         private void ComponiFile(ExcelPackage p)
         {
-            var foglioDiCalcolo = p.Workbook.Worksheets.First();
-            foglioDiCalcolo.Cells[Intestazione1].Value = Intestazione1?.ToUpper();
-            foglioDiCalcolo.Cells[Intestazione2].Value = Intestazione2?.ToUpper();
+            try
+            {
+                var foglioDiCalcolo = p.Workbook.Worksheets.First();
+                foglioDiCalcolo.Cells[Intestazione1PlaceHolder].Value = Intestazione1?.ToUpper();
+                foglioDiCalcolo.Cells[Intestazione2PlaceHolder].Value = Intestazione2?.ToUpper();
 
-            //anagrafica
-            foglioDiCalcolo.Cells[NominativoPlaceHolder].Value = $"{DatiRimborso.Nome} {DatiRimborso.Cognome}";
-            foglioDiCalcolo.Cells[DescrizionePlaceHolder].Value = DatiRimborso.Descrizione;
-            foglioDiCalcolo.Cells[ItinerarioPlaceHolder].Value = DatiRimborso.DescrizioneItinerario;
-            foglioDiCalcolo.Cells[DateViaggiPlaceHolder].Value = string.Join(",", DatiRimborso.ListaProve.Select(x => x.ToString("dd/MM/yyyy")));
+                //anagrafica
+                foglioDiCalcolo.Cells[NominativoPlaceHolder].Value = $"{DatiRimborso.Nome} {DatiRimborso.Cognome}";
+                foglioDiCalcolo.Cells[DescrizionePlaceHolder].Value = DatiRimborso.Descrizione;
+                foglioDiCalcolo.Cells[ItinerarioPlaceHolder].Value = DatiRimborso.DescrizioneItinerario;
+                foglioDiCalcolo.Cells[DateViaggiPlaceHolder].Value = string.Join(", ", DatiRimborso.ListaProve.Select(x => x.ToString("dd/MM/yyyy")));
 
-            //dettagli sui km
-            foglioDiCalcolo.Cells[KmPercorsiPlaceHolder].Value = DatiRimborso.Distanza;
-            foglioDiCalcolo.Cells[CostoKmPlaceHolder].Value = DatiRimborso.RimborsoKm;
-            foglioDiCalcolo.Cells[TotaleCostoKmPlaceHolder].Value = DatiRimborso.TotaleReale;
+                //dettagli sui km
+                foglioDiCalcolo.Cells[KmPercorsiPlaceHolder].Value = DatiRimborso.Distanza;
+                foglioDiCalcolo.Cells[CostoKmPlaceHolder].Value = DatiRimborso.RimborsoKm;
+                foglioDiCalcolo.Cells[TotaleCostoKmPlaceHolder].Value = DatiRimborso.TotaleReale;
 
-            //anagrafica auto
-            foglioDiCalcolo.Cells[ModelloAutoPlaceHolder].Value = DatiRimborso.TipoAuto;
-            foglioDiCalcolo.Cells[AlimentazionePlaceHolder].Value = DatiRimborso.Carburante;
+                //anagrafica auto
+                foglioDiCalcolo.Cells[ModelloAutoPlaceHolder].Value = DatiRimborso.TipoAuto;
+                foglioDiCalcolo.Cells[AlimentazionePlaceHolder].Value = DatiRimborso.Carburante;
 
-            //altri costi (?)
+                //altri costi (?)
 
-            //totale
+                //totale
+                foglioDiCalcolo.Cells[TotaleRealePlaceHolder].Value = DatiRimborso.TotaleDovuto;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Dati rimborso: {@datirimborso}, Intestazione1: {i1}, Intestazione2: {i2}", DatiRimborso, Intestazione1, Intestazione2);
+                throw;
+            }
         }
     }
 

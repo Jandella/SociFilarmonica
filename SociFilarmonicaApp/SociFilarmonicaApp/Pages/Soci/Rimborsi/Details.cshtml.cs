@@ -14,7 +14,7 @@ namespace SociFilarmonicaApp.Pages.StoricoRimborsi
 {
     public class DetailsModel : ExportRimborsoPageModel
     {
-        private readonly FilarmonicaContext _context;
+        protected readonly FilarmonicaContext _context;
         private readonly IWebHostEnvironment _env;
         public DetailsModel(IWebHostEnvironment env, FilarmonicaContext context)
         {
@@ -26,7 +26,8 @@ namespace SociFilarmonicaApp.Pages.StoricoRimborsi
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            AttachExcelExportAction(_env);
+            var ana = await _context.GetAnagrafica();
+            AttachExcelExportAction(_env, ana);
 
             if (id == null)
             {

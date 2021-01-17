@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using OfficeOpenXml;
 using SociFilarmonicaApp.Data;
+using SociFilarmonicaApp.Data.DbModels;
 using SociFilarmonicaApp.Models;
 using SociFilarmonicaApp.Models.ExcelModels;
 using System;
@@ -20,9 +21,8 @@ namespace SociFilarmonicaApp.Pages.Soci.Rimborsi
 {
     public class ExportRimborsoPageModel : PageModel
     {
-        
 
-        
+
         [BindProperty]
         public CalcoloRimborsoVM DatiCalcolo { get; set; }
 
@@ -45,7 +45,7 @@ namespace SociFilarmonicaApp.Pages.Soci.Rimborsi
                 Nome = rimborso.Socio.Nome,
                 Carburante = rimborso.DatiDaSerializzare.Carburante,
                 DescrizioneMacchina = rimborso.DatiDaSerializzare.DescrizioneMacchina,
-                Distanza = 0,
+                Distanza = rimborso.DatiDaSerializzare.Distanza,
                 DescrizioneItinerario = rimborso.DatiDaSerializzare.DescrizioneItinerario,
                 InfoAutoID = rimborso.DatiDaSerializzare.InfoAutoID,
                 RimborsoKm = rimborso.DatiDaSerializzare.RimborsoKm,
@@ -81,7 +81,7 @@ namespace SociFilarmonicaApp.Pages.Soci.Rimborsi
             }
         }
 
-        public void AttachExcelExportAction(IWebHostEnvironment env)
+        public void AttachExcelExportAction(IWebHostEnvironment env, AnagraficaFilarmonica ana = null)
         {
             if (HybridSupport.IsElectronActive)
             {
@@ -102,7 +102,6 @@ namespace SociFilarmonicaApp.Pages.Soci.Rimborsi
 
                         string path = path = await Electron.Dialog.ShowSaveDialogAsync(mainWindow, saveOptions);
                         
-
                         if (string.IsNullOrEmpty(path))
                         {
                             return;
@@ -110,7 +109,11 @@ namespace SociFilarmonicaApp.Pages.Soci.Rimborsi
 
                         try
                         {
-                            IExcelModel m = new RimborsoKmExcel(env, DatiCalcolo);
+                            IExcelModel m = new RimborsoKmExcel(env, DatiCalcolo) 
+                            { 
+                                Intestazione1 = ana?.RagioneSociale??"Società",
+                                Intestazione2 = ana?.Citta
+                            };
                             await m.SaveAs(path);
                         }
                         catch (Exception ex)
