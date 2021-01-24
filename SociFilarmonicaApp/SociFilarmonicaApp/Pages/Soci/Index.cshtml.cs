@@ -43,7 +43,8 @@ namespace SociFilarmonicaApp.Pages.Soci
 
             CurrentFilter = searchString;
 
-            IQueryable<Socio> sociIQ = _context.Soci.Where(s => !s.Annullato);
+            IQueryable<Socio> sociIQ = _context.Soci
+                .Where(s => !s.Annullato);
 
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -84,7 +85,8 @@ namespace SociFilarmonicaApp.Pages.Soci
                 Nome = x.Nome,
                 TipologiaSocioID = x.TipologiaSocioID,
                 TipologiaSocioDesc = x.Tipologia.Descrizione,
-                PrivacyFirmata = x.PrivacyFirmata
+                PrivacyFirmata = x.PrivacyFirmata,
+                DatiAutoID = x.DatiAutoID
             });
 
             Soci = await PaginatedList<Models.SocioVm>.CreateAsync(sociVmIQ.AsNoTracking(), pageIndex ?? 1, pageSize);

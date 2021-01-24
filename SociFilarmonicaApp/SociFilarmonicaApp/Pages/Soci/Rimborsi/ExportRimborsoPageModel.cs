@@ -10,6 +10,7 @@ using SociFilarmonicaApp.Data;
 using SociFilarmonicaApp.Data.DbModels;
 using SociFilarmonicaApp.Models;
 using SociFilarmonicaApp.Models.ExcelModels;
+using SociFilarmonicaApp.Pages.Shared;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,7 +20,7 @@ using System.Threading.Tasks;
 
 namespace SociFilarmonicaApp.Pages.Soci.Rimborsi
 {
-    public class ExportRimborsoPageModel : PageModel
+    public class ExportRimborsoPageModel : PageModelMsgUtente
     {
 
 
@@ -54,7 +55,7 @@ namespace SociFilarmonicaApp.Pages.Soci.Rimborsi
                 ListaProve = rimborso.DatiDaSerializzare.ListaProve,
                 Descrizione = rimborso.Descrizione,
                 TotaleReale = rimborso.DatiDaSerializzare.TotaleReale,
-                TotaleDovuto = rimborso.DatiDaSerializzare.TotaleDovuto
+                TotaleDovuto = rimborso.DatiDaSerializzare.TotaleDovuto,
             };
             //manage null lists
             if (DatiCalcolo.ListaProve == null || !DatiCalcolo.ListaProve.Any())
@@ -64,27 +65,31 @@ namespace SociFilarmonicaApp.Pages.Soci.Rimborsi
                     DateTime.Now.Date
                 };
             }
-            if (rimborso.DatiDaSerializzare.AltriCosti == null || !rimborso.DatiDaSerializzare.AltriCosti.Any())
+            DatiCalcolo.AltriCostiAltro = new CalcoloRimborsoAltriCostiVM
             {
-                DatiCalcolo.AltriCosti = new List<CalcoloRimborsoAltriCostiVM>() {
-                    new CalcoloRimborsoAltriCostiVM()
-                };
-            }
-            else
+                Costo = rimborso.DatiDaSerializzare.AltriCostiAltro?.Costo ?? 0,
+                NumRicevute = rimborso.DatiDaSerializzare.AltriCostiAltro?.NumRicevute ?? 0,
+                Descrizione = rimborso.DatiDaSerializzare.AltriCostiAltro?.Descrizione ?? DatiCalcolo.AltriCostiAltro.Descrizione, //prende il default
+            };
+            DatiCalcolo.AltriCostiAutostrada = new CalcoloRimborsoAltriCostiVM
             {
-                DatiCalcolo.AltriCosti = rimborso.DatiDaSerializzare.AltriCosti
-                .Select(x => new CalcoloRimborsoAltriCostiVM
-                {
-                    Costo = x.Costo,
-                    Descrizione = x.Descrizione
-                }).ToList();
-            }
+                Costo = rimborso.DatiDaSerializzare.AltriCostiAutostrada?.Costo ?? 0,
+                NumRicevute = rimborso.DatiDaSerializzare.AltriCostiAutostrada?.NumRicevute ?? 0,
+                Descrizione = rimborso.DatiDaSerializzare.AltriCostiAutostrada?.Descrizione ?? DatiCalcolo.AltriCostiAutostrada.Descrizione, //prende il default
+            };
+            DatiCalcolo.AltriCostiTreno = new CalcoloRimborsoAltriCostiVM
+            {
+                Costo = rimborso.DatiDaSerializzare.AltriCostiTreno?.Costo ?? 0,
+                NumRicevute = rimborso.DatiDaSerializzare.AltriCostiTreno?.NumRicevute ?? 0,
+                Descrizione = rimborso.DatiDaSerializzare.AltriCostiTreno?.Descrizione ?? DatiCalcolo.AltriCostiTreno.Descrizione, //prende il default
+            };
         }
 
         public void AttachExcelExportAction(IWebHostEnvironment env, AnagraficaFilarmonica ana = null)
         {
             if (HybridSupport.IsElectronActive)
             {
+                Electron.IpcMain.RemoveAllListeners("export-excel-calcola");
                 Electron.IpcMain.On("export-excel-calcola", async (args) =>
                     {
                         BrowserWindow mainWindow = Electron.WindowManager.BrowserWindows.First();

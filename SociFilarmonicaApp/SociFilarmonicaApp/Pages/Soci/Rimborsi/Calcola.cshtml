@@ -15,6 +15,15 @@
 
 </p>
 <hr />
+@if (!string.IsNullOrEmpty(Model.MsgSuccess))
+{
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    @Model.MsgSuccess
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+}
 <p>
     <span class="fa fa-info"></span> Aggiungi la lista prove a cui ha partecipato, eventuali altri costi.
     Premi il pulsante "Calcola" per avere un'anteprima del rimborso spesa. Premi il tasto "Salva" per salvare il rimborso spesa.
@@ -78,36 +87,48 @@
                     Altri costi (opzionale)
                 </legend>
                 <div class="form-row m-1">
-                    <div class="form-group col-md-6">
-                        <label asp-for="DatiCalcolo.AltriCosti[0].Descrizione" class="control-label"></label>
-                        <input asp-for="DatiCalcolo.AltriCosti[0].Descrizione" class="form-control" />
-                        <span asp-validation-for="DatiCalcolo.AltriCosti[0].Descrizione" class="text-danger"></span>
+                    <div class="form-group col-md-4">
+                        <label asp-for="DatiCalcolo.AltriCostiAutostrada.Descrizione" class="control-label"></label>
+                        <input asp-for="DatiCalcolo.AltriCostiAutostrada.Descrizione" class="form-control" readonly="readonly" />
+                        <span asp-validation-for="DatiCalcolo.AltriCostiAutostrada.Descrizione" class="text-danger"></span>
                     </div>
-                    <div class="form-group col-md-5">
-                        <label asp-for="DatiCalcolo.AltriCosti[0].Costo" class="control-label"></label>
-                        <input asp-for="DatiCalcolo.AltriCosti[0].Costo" class="form-control" />
-                        <span asp-validation-for="DatiCalcolo.AltriCosti[0].Costo" class="text-danger"></span>
+                    <div class="form-group col-md-4">
+                        <label asp-for="DatiCalcolo.AltriCostiAutostrada.NumRicevute" class="control-label"></label>
+                        <input asp-for="DatiCalcolo.AltriCostiAutostrada.NumRicevute" class="form-control" />
+                        <span asp-validation-for="DatiCalcolo.AltriCostiAutostrada.NumRicevute" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="DatiCalcolo.AltriCostiAutostrada.Costo" class="control-label"></label>
+                        <input asp-for="DatiCalcolo.AltriCostiAutostrada.Costo" class="form-control" />
+                        <span asp-validation-for="DatiCalcolo.AltriCostiAutostrada.Costo" class="text-danger"></span>
                     </div>
                 </div>
-                @for (int i = 1; i < Model.DatiCalcolo.AltriCosti.Count; i++)
-                {
-                    <div class="form-row m-1">
-                        <div class="form-group col-md-6">
-                            <input asp-for="DatiCalcolo.AltriCosti[i].Descrizione" class="form-control" />
-                            <span asp-validation-for="DatiCalcolo.AltriCosti[i].Descrizione" class="text-danger"></span>
-                        </div>
-                        <div class="form-group col-md-5">
-                            <input asp-for="DatiCalcolo.AltriCosti[i].Costo" class="form-control" />
-                            <span asp-validation-for="DatiCalcolo.AltriCosti[i].Costo" class="text-danger"></span>
-                        </div>
-                        <div class="form-group col-1">
-                            <button type="submit" asp-page-handler="RemoveAltroCosto" asp-route-index="@i" class="btn btn-danger"><i class="fa fa-times"></i></button>
-                        </div>
+                <div class="form-row m-1">
+                    <div class="form-group col-md-4">
+                        <input asp-for="DatiCalcolo.AltriCostiTreno.Descrizione" class="form-control" readonly="readonly" />
+                        <span asp-validation-for="DatiCalcolo.AltriCostiTreno.Descrizione" class="text-danger"></span>
                     </div>
-                }
-                <div class="form-row">
-                    <div class="form-group col">
-                        <button type="submit" asp-page-handler="AddAltroCosto" class="btn btn-secondary float-right"><i class="fa fa-plus"></i></button>
+                    <div class="form-group col-md-4">
+                        <input asp-for="DatiCalcolo.AltriCostiTreno.NumRicevute" class="form-control" />
+                        <span asp-validation-for="DatiCalcolo.AltriCostiTreno.NumRicevute" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <input asp-for="DatiCalcolo.AltriCostiTreno.Costo" class="form-control" />
+                        <span asp-validation-for="DatiCalcolo.AltriCostiTreno.Costo" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-row m-1">
+                    <div class="form-group col-md-4">
+                        <input asp-for="DatiCalcolo.AltriCostiAltro.Descrizione" class="form-control" readonly="readonly" />
+                        <span asp-validation-for="DatiCalcolo.AltriCostiAltro.Descrizione" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <input asp-for="DatiCalcolo.AltriCostiAltro.NumRicevute" class="form-control" />
+                        <span asp-validation-for="DatiCalcolo.AltriCostiAltro.NumRicevute" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <input asp-for="DatiCalcolo.AltriCostiAltro.Costo" class="form-control" />
+                        <span asp-validation-for="DatiCalcolo.AltriCostiAltro.Costo" class="text-danger"></span>
                     </div>
                 </div>
             </fieldset>
@@ -167,12 +188,12 @@
 </form>
 
 <script>
-            (function(){
-                const { ipcRenderer } = require("electron");
-                document.getElementById("export-excel").addEventListener("click", () => {
-                    ipcRenderer.send("export-excel-calcola");
-                });
-            }());
+    (function () {
+        const { ipcRenderer } = require("electron");
+        document.getElementById("export-excel").addEventListener("click", () => {
+            ipcRenderer.send("export-excel-calcola");
+        });
+    }());
 </script>
 
 

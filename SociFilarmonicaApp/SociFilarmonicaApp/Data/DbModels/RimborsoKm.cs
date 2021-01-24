@@ -27,6 +27,12 @@ namespace SociFilarmonicaApp.Data.DbModels
     [NotMapped]
     public class DatiCalcoloDaSerializzare
     {
+        public DatiCalcoloDaSerializzare()
+        {
+            AltriCostiTreno = new AltriCosti("Treno");
+            AltriCostiAutostrada = new AltriCosti("Autostrada");
+            AltriCostiAltro = new AltriCosti("Altro");
+        }
         public List<DateTime> ListaProve { get; set; }
         public decimal Distanza { get; set; }
 
@@ -40,14 +46,26 @@ namespace SociFilarmonicaApp.Data.DbModels
         public string Carburante { get; set; }
 
         public decimal RimborsoKm { get; set; }
-        public List<AltriCosti> AltriCosti { get; set; }
+        public AltriCosti AltriCostiAutostrada { get; set; }
+        public AltriCosti AltriCostiTreno { get; set; }
+        public AltriCosti AltriCostiAltro { get; set; }
         public decimal TotaleReale { get; set; }
         public decimal TotaleDovuto { get; set; }
     }
 
     public class AltriCosti
     {
+        public AltriCosti()
+        {
+
+        }
+
+        public AltriCosti(string desc)
+        {
+            Descrizione = desc;
+        }
         public string Descrizione { get; set; }
+        public int NumRicevute { get; set; }
         public decimal Costo { get; set; }
     }
 }

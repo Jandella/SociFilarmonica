@@ -89,21 +89,22 @@ namespace SociFilarmonicaApp
                 RimborsoKm = socio.DatiAuto.RimborsoKm,
                 TargaMacchina = socio.TargaMacchina,
                 TipoAuto = socio.DatiAuto.TipoAuto,
-                ListaProve = new List<DateTime> { DateTime.Now.Date },
-                AltriCosti = new List<CalcoloRimborsoAltriCostiVM> { new CalcoloRimborsoAltriCostiVM() }
+                ListaProve = new List<DateTime> { DateTime.Now.Date }
             };
             DatiCalcolo.Descrizione = DatiCalcolo.GeneraDescrizione();
         }
-        
+
 
 
         public IActionResult OnPostAddDataProva()
         {
+            ClearMessaggioPerUtente();
             DatiCalcolo.ListaProve.Add(DateTime.Now);
             return Page();
         }
         public IActionResult OnPostRemoveDataProva(int index)
         {
+            ClearMessaggioPerUtente();
             if (index >= 0 && index < DatiCalcolo.ListaProve.Count)
             {
                 DatiCalcolo.ListaProve.RemoveAt(index);
@@ -111,22 +112,9 @@ namespace SociFilarmonicaApp
             return Page();
         }
 
-        public IActionResult OnPostAddAltroCosto()
-        {
-            DatiCalcolo.AltriCosti.Add(new CalcoloRimborsoAltriCostiVM());
-            return Page();
-        }
-        public IActionResult OnPostRemoveAltroCosto(int index)
-        {
-            if (index >= 0 && index < DatiCalcolo.AltriCosti.Count)
-            {
-                DatiCalcolo.AltriCosti.RemoveAt(index);
-            }
-            return Page();
-        }
-
         public IActionResult OnPostCalcolatrice()
         {
+            ClearMessaggioPerUtente();
             //calcola il totale
             var totale = DatiCalcolo.Calcola();
             DatiCalcolo.TotaleReale = totale;
@@ -134,6 +122,7 @@ namespace SociFilarmonicaApp
         }
         public async Task<IActionResult> OnPost()
         {
+            ClearMessaggioPerUtente();
             //calcola il totale
             var totale = DatiCalcolo.Calcola();
             DatiCalcolo.TotaleReale = totale;
@@ -152,11 +141,24 @@ namespace SociFilarmonicaApp
             inDb.Descrizione = DatiCalcolo.Descrizione;
             inDb.DatiDaSerializzare = new Data.DbModels.DatiCalcoloDaSerializzare
             {
-                AltriCosti = DatiCalcolo.AltriCosti.Select(x => new Data.DbModels.AltriCosti
+                AltriCostiAltro = new Data.DbModels.AltriCosti
                 {
-                    Costo = x.Costo,
-                    Descrizione = x.Descrizione
-                }).ToList(),
+                    Costo = DatiCalcolo.AltriCostiAltro.Costo,
+                    Descrizione = DatiCalcolo.AltriCostiAltro.Descrizione,
+                    NumRicevute = DatiCalcolo.AltriCostiAltro.NumRicevute
+                },
+                AltriCostiAutostrada = new Data.DbModels.AltriCosti
+                {
+                    Costo = DatiCalcolo.AltriCostiAutostrada.Costo,
+                    Descrizione = DatiCalcolo.AltriCostiAutostrada.Descrizione,
+                    NumRicevute = DatiCalcolo.AltriCostiAutostrada.NumRicevute
+                },
+                AltriCostiTreno = new Data.DbModels.AltriCosti
+                {
+                    Costo = DatiCalcolo.AltriCostiTreno.Costo,
+                    Descrizione = DatiCalcolo.AltriCostiTreno.Descrizione,
+                    NumRicevute = DatiCalcolo.AltriCostiTreno.NumRicevute
+                },
                 Carburante = DatiCalcolo.Carburante,
                 DescrizioneMacchina = DatiCalcolo.DescrizioneMacchina,
                 Distanza = DatiCalcolo.Distanza,
@@ -172,9 +174,10 @@ namespace SociFilarmonicaApp
             inDb.TotaleDovuto = DatiCalcolo.TotaleDovuto;
             inDb.DatiRimborsoSerializzati = JsonSerializer.Serialize(inDb.DatiDaSerializzare);
             await _context.SaveChangesAsync();
+            MsgSuccess = "Salvato con successo!";
             return Page();
         }
 
-        
+
     }
 }

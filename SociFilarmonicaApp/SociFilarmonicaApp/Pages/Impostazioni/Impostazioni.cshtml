@@ -6,6 +6,16 @@
 
 <h1>Impostazioni</h1>
 
+@if (!string.IsNullOrEmpty(Model.MsgSuccess))
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @Model.MsgSuccess
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
 <form method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="card">
@@ -17,7 +27,7 @@
                     <input asp-for="Anagrafica.RagioneSociale" class="form-control" />
                     <span asp-validation-for="Anagrafica.RagioneSociale" class="text-danger"></span>
                 </div>
-                
+
             </div>
             <div class="form-row">
                 <div class="form-group col-md-4">
@@ -55,7 +65,7 @@
             </div>
         </div>
     </div>
-    
+
 </form>
 
 <h4>Esporta dati</h4>
@@ -67,11 +77,11 @@
 
 
 <script>
-            (function(){
-                const { ipcRenderer } = require("electron");
-                document.getElementById("export-excel").addEventListener("click", () => {
-                    ipcRenderer.send("export-excel");
-                });
-            }());
+    (function () {
+        const { ipcRenderer } = require("electron");
+        document.getElementById("export-excel").addEventListener("click", () => {
+            ipcRenderer.send("export-excel");
+        });
+    }());
 </script>
 

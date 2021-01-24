@@ -84,9 +84,13 @@
                 <td>@Html.ToSiNo(item.PrivacyFirmata)</td>
                 <td>
                     <div class="btn-group btn-group-sm">
-                        <a class="btn btn-secondary" asp-page="./Edit" asp-route-id="@item.ID"><i class="fa fa-edit"></i></a>
-                        <a class="btn btn-secondary" asp-page="./Details" asp-route-id="@item.ID"><i class="fa fa-info"></i></a>
-                        <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.ID"><i class="fa fa-trash"></i></a>
+                        <a class="btn btn-secondary" asp-page="./Edit" asp-route-id="@item.ID" title="Modifica"><i class="fa fa-edit"></i></a>
+                        <a class="btn btn-secondary" asp-page="./Details" asp-route-id="@item.ID" title="Dettagli"><i class="fa fa-info"></i></a>
+                        @if (item.DatiAutoID != null)
+                        {
+                            <a class="btn btn-secondary" asp-page="./Rimborsi/Calcola" asp-route-idSocio="@item.ID" title="Nuovo rimborso"><i class="fa fa-receipt"></i></a>
+                        }
+                        <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.ID" title="Elimina"><i class="fa fa-trash"></i></a>
                     </div>
                     
                 </td>

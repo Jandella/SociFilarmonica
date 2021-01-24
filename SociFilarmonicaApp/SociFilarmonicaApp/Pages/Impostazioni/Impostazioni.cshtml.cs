@@ -12,10 +12,11 @@ using ElectronNET.API.Entities;
 using Microsoft.Extensions.Logging;
 using SociFilarmonicaApp.Data;
 using SociFilarmonicaApp.Data.DbModels;
+using SociFilarmonicaApp.Pages.Shared;
 
 namespace SociFilarmonicaApp
 {
-    public class ImpostazioniModel : PageModel
+    public class ImpostazioniModel : PageModelMsgUtente
     {
         private readonly FilarmonicaContext _context;
         private readonly ILogger<ImpostazioniModel> _logger;
@@ -34,13 +35,14 @@ namespace SociFilarmonicaApp
                 Anagrafica = new AnagraficaFilarmonica();
             if (HybridSupport.IsElectronActive)
             {
-
+                Electron.IpcMain.RemoveAllListeners("export-excel");
                 Electron.IpcMain.On("export-excel", async (args) => await ExportExcelAction(args));
             }
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
+            ClearMessaggioPerUtente();
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -71,7 +73,7 @@ namespace SociFilarmonicaApp
                 
                 await _context.SaveChangesAsync();
             }
-
+            MsgSuccess = "Salvato con successo!";
             return Page();
         }
 

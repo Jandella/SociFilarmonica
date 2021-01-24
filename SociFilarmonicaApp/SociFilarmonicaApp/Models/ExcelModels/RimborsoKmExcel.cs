@@ -42,6 +42,12 @@ namespace SociFilarmonicaApp.Models.ExcelModels
         public string ModelloAutoPlaceHolder => "D18";
         public string AlimentazionePlaceHolder => "D19";
         public string TotaleRealePlaceHolder => "G31";
+        public string RicevuteAutostradaPlaceHolder => "C24";
+        public string CostoAutostradaPlaceHolder => "G24";
+        public string RicevuteTrenoPlaceHolder => "C22";
+        public string CostoTrenoPlaceHolder => "G22";
+        public string RicevuteAltroPlaceHolder => "C23";
+        public string CostoAltroPlaceHolder => "G23";
 
         private readonly string FileName = "Template_RimborsoSpeseViaggio.xlsx";
 
@@ -98,7 +104,13 @@ namespace SociFilarmonicaApp.Models.ExcelModels
                 foglioDiCalcolo.Cells[ModelloAutoPlaceHolder].Value = DatiRimborso.TipoAuto;
                 foglioDiCalcolo.Cells[AlimentazionePlaceHolder].Value = DatiRimborso.Carburante;
 
-                //altri costi (?)
+                //altri costi 
+                foglioDiCalcolo.Cells[CostoTrenoPlaceHolder].Value = DatiRimborso.AltriCostiTreno.Costo;
+                foglioDiCalcolo.Cells[RicevuteTrenoPlaceHolder].Value = DatiRimborso.AltriCostiTreno.NumRicevute;
+                foglioDiCalcolo.Cells[CostoAutostradaPlaceHolder].Value = DatiRimborso.AltriCostiAutostrada.Costo;
+                foglioDiCalcolo.Cells[RicevuteAutostradaPlaceHolder].Value = DatiRimborso.AltriCostiAutostrada.NumRicevute;
+                foglioDiCalcolo.Cells[CostoAltroPlaceHolder].Value = DatiRimborso.AltriCostiAltro.Costo;
+                foglioDiCalcolo.Cells[RicevuteAltroPlaceHolder].Value = DatiRimborso.AltriCostiAltro.NumRicevute;
 
                 //totale
                 foglioDiCalcolo.Cells[TotaleRealePlaceHolder].Value = DatiRimborso.TotaleDovuto;

@@ -30,19 +30,11 @@
         <div class="col-md-6">
             <fieldset>
                 <legend>Altri costi</legend>
-                @if (Model.DatiCalcolo.AltriCosti.Any() && Model.DatiCalcolo.AltriCosti.First().Costo != 0)
-                {
-                    <ul>
-                        @foreach (var item in Model.DatiCalcolo.AltriCosti)
-                        {
-                            <li>@(item.Descrizione) - @(item.Costo)</li>
-                        }
-                    </ul>
-                }
-                else
-                {
-                    <p>Nessuno.</p>
-                }
+                <ul>
+                    <li>@Model.DatiCalcolo.AltriCostiAutostrada.Descrizione: @Html.DisplayFor(model => model.DatiCalcolo.AltriCostiAutostrada.Costo), (@Model.DatiCalcolo.AltriCostiAutostrada.NumRicevute ricevute)</li>
+                    <li>@Model.DatiCalcolo.AltriCostiTreno.Descrizione: @Html.DisplayFor(model => model.DatiCalcolo.AltriCostiTreno.Costo), (@Model.DatiCalcolo.AltriCostiTreno.NumRicevute ricevute)</li>
+                    <li>@Model.DatiCalcolo.AltriCostiAltro.Descrizione: @Html.DisplayFor(model => model.DatiCalcolo.AltriCostiAltro.Costo), (@Model.DatiCalcolo.AltriCostiAltro.NumRicevute ricevute)</li>
+                </ul>
             </fieldset>
         </div>
     </div>

@@ -25,7 +25,9 @@ namespace SociFilarmonicaApp.Models
         public CalcoloRimborsoVM()
         {
             ListaProve = new List<DateTime>();
-            AltriCosti = new List<CalcoloRimborsoAltriCostiVM>();
+            AltriCostiAltro = new CalcoloRimborsoAltriCostiVM("Altro");
+            AltriCostiAutostrada = new CalcoloRimborsoAltriCostiVM("Autostrada");
+            AltriCostiTreno = new CalcoloRimborsoAltriCostiVM("Treno");
         }
         [Required]
         [Display(Name = "Prove a cui ha partecipato")]
@@ -48,21 +50,26 @@ namespace SociFilarmonicaApp.Models
         public string Carburante { get; set; }
         [Display(Name = "Rimborso per Km")]
         public decimal RimborsoKm { get; set; }
-        public List<CalcoloRimborsoAltriCostiVM> AltriCosti { get; set; }
+        public CalcoloRimborsoAltriCostiVM AltriCostiTreno { get; set; }
+        public CalcoloRimborsoAltriCostiVM AltriCostiAutostrada { get; set; }
+        public CalcoloRimborsoAltriCostiVM AltriCostiAltro { get; set; }
         [Display(Name = "Totale")]
         public decimal TotaleReale { get; set; }
         
 
         /// <summary>
         /// Calcola il rimborso come numero di prove per il costo di viaggio andata e ritorno più somma degli altri costi.
-        /// <see cref="Distanza"/> * 2 * <see cref="RimborsoKm"/> * <see cref="NumeroProve"/> + <see cref=" AltriCosti"/>
+        /// <see cref="Distanza"/> * 2 * <see cref="RimborsoKm"/> * <see cref="NumeroProve"/> + altri costi
         /// </summary>
         /// <returns></returns>
         public decimal Calcola()
         {
             var andataRitornoPerUnaProva = Distanza * 2 * RimborsoKm;
             var totaleAndataRitorno = NumeroProve * andataRitornoPerUnaProva;
-            var costiAggiuntivi = AltriCosti?.Sum(x => x.Costo) ?? 0;
+            var costiAggiuntivi = AltriCostiAltro?.Costo ?? 0
+                + AltriCostiAutostrada?.Costo ?? 0
+                + AltriCostiTreno?.Costo ?? 0;
+
             return totaleAndataRitorno + costiAggiuntivi;
         }
         /// <summary>
@@ -90,8 +97,23 @@ namespace SociFilarmonicaApp.Models
     }
     public class CalcoloRimborsoAltriCostiVM
     {
+        public CalcoloRimborsoAltriCostiVM()
+        {
+
+        }
+
+        public CalcoloRimborsoAltriCostiVM(string desc)
+        {
+            Descrizione = desc;
+        }
         public string Descrizione { get; set; }
+        public int NumRicevute { get; set; }
+        /// <summary>
+        /// è il totale
+        /// </summary>
         public decimal Costo { get; set; }
+        //todo: serve?
+        public string Note { get; set; }
     }
 
     
