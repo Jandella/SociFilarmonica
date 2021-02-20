@@ -159,6 +159,30 @@ namespace SociFilarmonicaApp
                     Descrizione = DatiCalcolo.AltriCostiTreno.Descrizione,
                     NumRicevute = DatiCalcolo.AltriCostiTreno.NumRicevute
                 },
+                AltriCostiVitto = new Data.DbModels.AltriCosti
+                {
+                    Costo = DatiCalcolo.AltriCostiVitto.Costo,
+                    Descrizione = DatiCalcolo.AltriCostiVitto.Descrizione,
+                    NumRicevute = DatiCalcolo.AltriCostiVitto.NumRicevute
+                },
+                AltriCostiMezziPubblici = new Data.DbModels.AltriCosti
+                {
+                    Costo = DatiCalcolo.AltriCostiMezziPubblici.Costo,
+                    Descrizione = DatiCalcolo.AltriCostiMezziPubblici.Descrizione,
+                    NumRicevute = DatiCalcolo.AltriCostiMezziPubblici.NumRicevute
+                },
+                AltriCostiParcheggi = new Data.DbModels.AltriCosti
+                {
+                    Costo = DatiCalcolo.AltriCostiParcheggi.Costo,
+                    Descrizione = DatiCalcolo.AltriCostiParcheggi.Descrizione,
+                    NumRicevute = DatiCalcolo.AltriCostiParcheggi.NumRicevute
+                },
+                AltriCostiHotel = new Data.DbModels.AltriCosti
+                {
+                    Costo = DatiCalcolo.AltriCostiHotel.Costo,
+                    Descrizione = DatiCalcolo.AltriCostiHotel.Descrizione,
+                    NumRicevute = DatiCalcolo.AltriCostiHotel.NumRicevute
+                },
                 Carburante = DatiCalcolo.Carburante,
                 DescrizioneMacchina = DatiCalcolo.DescrizioneMacchina,
                 Distanza = DatiCalcolo.Distanza,

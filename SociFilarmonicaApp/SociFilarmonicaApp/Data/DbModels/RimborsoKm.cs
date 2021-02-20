@@ -32,6 +32,10 @@ namespace SociFilarmonicaApp.Data.DbModels
             AltriCostiTreno = new AltriCosti("Treno");
             AltriCostiAutostrada = new AltriCosti("Autostrada");
             AltriCostiAltro = new AltriCosti("Altro");
+            AltriCostiMezziPubblici = new AltriCosti("Mezzi pubblici");
+            AltriCostiParcheggi = new AltriCosti("Posteggi");
+            AltriCostiVitto = new AltriCosti("Vitto");
+            AltriCostiHotel = new AltriCosti("Hotel");
         }
         public List<DateTime> ListaProve { get; set; }
         public decimal Distanza { get; set; }
@@ -49,6 +53,10 @@ namespace SociFilarmonicaApp.Data.DbModels
         public AltriCosti AltriCostiAutostrada { get; set; }
         public AltriCosti AltriCostiTreno { get; set; }
         public AltriCosti AltriCostiAltro { get; set; }
+        public AltriCosti AltriCostiParcheggi { get; set; }
+        public AltriCosti AltriCostiVitto { get; set; }
+        public AltriCosti AltriCostiMezziPubblici { get; set; }
+        public AltriCosti AltriCostiHotel { get; set; }
         public decimal TotaleReale { get; set; }
         public decimal TotaleDovuto { get; set; }
     }

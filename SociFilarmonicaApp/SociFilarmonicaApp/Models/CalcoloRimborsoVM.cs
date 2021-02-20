@@ -28,6 +28,10 @@ namespace SociFilarmonicaApp.Models
             AltriCostiAltro = new CalcoloRimborsoAltriCostiVM("Altro");
             AltriCostiAutostrada = new CalcoloRimborsoAltriCostiVM("Autostrada");
             AltriCostiTreno = new CalcoloRimborsoAltriCostiVM("Treno");
+            AltriCostiMezziPubblici = new CalcoloRimborsoAltriCostiVM("Mezzi pubblici");
+            AltriCostiParcheggi = new CalcoloRimborsoAltriCostiVM("Posteggi");
+            AltriCostiVitto = new CalcoloRimborsoAltriCostiVM("Vitto");
+            AltriCostiHotel = new CalcoloRimborsoAltriCostiVM("Hotel");
         }
         [Required]
         [Display(Name = "Prove a cui ha partecipato")]
@@ -53,6 +57,10 @@ namespace SociFilarmonicaApp.Models
         public CalcoloRimborsoAltriCostiVM AltriCostiTreno { get; set; }
         public CalcoloRimborsoAltriCostiVM AltriCostiAutostrada { get; set; }
         public CalcoloRimborsoAltriCostiVM AltriCostiAltro { get; set; }
+        public CalcoloRimborsoAltriCostiVM AltriCostiParcheggi { get; set; }
+        public CalcoloRimborsoAltriCostiVM AltriCostiVitto { get; set; }
+        public CalcoloRimborsoAltriCostiVM AltriCostiMezziPubblici { get; set; }
+        public CalcoloRimborsoAltriCostiVM AltriCostiHotel { get; set; }
         [Display(Name = "Totale")]
         public decimal TotaleReale { get; set; }
         
@@ -66,9 +74,13 @@ namespace SociFilarmonicaApp.Models
         {
             var andataRitornoPerUnaProva = Distanza * 2 * RimborsoKm;
             var totaleAndataRitorno = NumeroProve * andataRitornoPerUnaProva;
-            var costiAggiuntivi = AltriCostiAltro?.Costo ?? 0
-                + AltriCostiAutostrada?.Costo ?? 0
-                + AltriCostiTreno?.Costo ?? 0;
+            var costiAggiuntivi = (AltriCostiAltro?.Costo ?? 0)
+                + (AltriCostiAutostrada?.Costo ?? 0)
+                + (AltriCostiTreno?.Costo ?? 0)
+                + (AltriCostiVitto?.Costo ?? 0)
+                + (AltriCostiMezziPubblici?.Costo ?? 0)
+                + (AltriCostiParcheggi?.Costo ?? 0)
+                + (AltriCostiHotel?.Costo ?? 0);
 
             return totaleAndataRitorno + costiAggiuntivi;
         }
@@ -107,10 +119,12 @@ namespace SociFilarmonicaApp.Models
             Descrizione = desc;
         }
         public string Descrizione { get; set; }
+        [Display(Name = "Ricevute presentate")]
         public int NumRicevute { get; set; }
         /// <summary>
         /// è il totale
         /// </summary>
+        [Display(Name = "Totale spesa")]
         public decimal Costo { get; set; }
         //todo: serve?
         public string Note { get; set; }

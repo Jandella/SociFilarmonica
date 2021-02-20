@@ -48,6 +48,14 @@ namespace SociFilarmonicaApp.Models.ExcelModels
         public string CostoTrenoPlaceHolder => "G22";
         public string RicevuteAltroPlaceHolder => "C23";
         public string CostoAltroPlaceHolder => "G23";
+        public string RicevuteVittoPlaceHolder => "C25";
+        public string CostoVittoPlaceHolder => "G25";
+        public string RicevuteMezziPubbliciPlaceHolder => "C26";
+        public string CostoMezziPubbliciPlaceHolder => "G26";
+        public string RicevutePosteggiPlaceHolder => "C27";
+        public string CostoPosteggiPlaceHolder => "C27";
+        public string RicevuteHotelPlaceHolder => "C28";
+        public string CostoHotelPlaceHolder => "G28";
 
         private readonly string FileName = "Template_RimborsoSpeseViaggio.xlsx";
 
@@ -111,6 +119,14 @@ namespace SociFilarmonicaApp.Models.ExcelModels
                 foglioDiCalcolo.Cells[RicevuteAutostradaPlaceHolder].Value = DatiRimborso.AltriCostiAutostrada.NumRicevute;
                 foglioDiCalcolo.Cells[CostoAltroPlaceHolder].Value = DatiRimborso.AltriCostiAltro.Costo;
                 foglioDiCalcolo.Cells[RicevuteAltroPlaceHolder].Value = DatiRimborso.AltriCostiAltro.NumRicevute;
+                foglioDiCalcolo.Cells[RicevuteVittoPlaceHolder].Value = DatiRimborso.AltriCostiVitto.NumRicevute;
+                foglioDiCalcolo.Cells[CostoVittoPlaceHolder].Value = DatiRimborso.AltriCostiVitto.NumRicevute;
+                foglioDiCalcolo.Cells[RicevuteMezziPubbliciPlaceHolder].Value = DatiRimborso.AltriCostiMezziPubblici.NumRicevute;
+                foglioDiCalcolo.Cells[CostoMezziPubbliciPlaceHolder].Value = DatiRimborso.AltriCostiMezziPubblici.NumRicevute;
+                foglioDiCalcolo.Cells[RicevutePosteggiPlaceHolder].Value = DatiRimborso.AltriCostiParcheggi.NumRicevute;
+                foglioDiCalcolo.Cells[CostoPosteggiPlaceHolder].Value = DatiRimborso.AltriCostiParcheggi.NumRicevute;
+                foglioDiCalcolo.Cells[RicevuteHotelPlaceHolder].Value = DatiRimborso.AltriCostiHotel.NumRicevute;
+                foglioDiCalcolo.Cells[CostoHotelPlaceHolder].Value = DatiRimborso.AltriCostiHotel.NumRicevute;
 
                 //totale
                 foglioDiCalcolo.Cells[TotaleRealePlaceHolder].Value = DatiRimborso.TotaleDovuto;

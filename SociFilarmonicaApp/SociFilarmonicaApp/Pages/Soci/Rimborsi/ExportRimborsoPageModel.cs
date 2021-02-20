@@ -83,6 +83,30 @@ namespace SociFilarmonicaApp.Pages.Soci.Rimborsi
                 NumRicevute = rimborso.DatiDaSerializzare.AltriCostiTreno?.NumRicevute ?? 0,
                 Descrizione = rimborso.DatiDaSerializzare.AltriCostiTreno?.Descrizione ?? DatiCalcolo.AltriCostiTreno.Descrizione, //prende il default
             };
+            DatiCalcolo.AltriCostiVitto = new CalcoloRimborsoAltriCostiVM
+            {
+                Costo = rimborso.DatiDaSerializzare.AltriCostiVitto?.Costo ?? 0,
+                NumRicevute = rimborso.DatiDaSerializzare.AltriCostiVitto?.NumRicevute ?? 0,
+                Descrizione = rimborso.DatiDaSerializzare.AltriCostiVitto?.Descrizione ?? DatiCalcolo.AltriCostiTreno.Descrizione, //prende il default
+            };
+            DatiCalcolo.AltriCostiMezziPubblici = new CalcoloRimborsoAltriCostiVM
+            {
+                Costo = rimborso.DatiDaSerializzare.AltriCostiMezziPubblici?.Costo ?? 0,
+                NumRicevute = rimborso.DatiDaSerializzare.AltriCostiMezziPubblici?.NumRicevute ?? 0,
+                Descrizione = rimborso.DatiDaSerializzare.AltriCostiMezziPubblici?.Descrizione ?? DatiCalcolo.AltriCostiTreno.Descrizione, //prende il default
+            };
+            DatiCalcolo.AltriCostiParcheggi = new CalcoloRimborsoAltriCostiVM
+            {
+                Costo = rimborso.DatiDaSerializzare.AltriCostiParcheggi?.Costo ?? 0,
+                NumRicevute = rimborso.DatiDaSerializzare.AltriCostiParcheggi?.NumRicevute ?? 0,
+                Descrizione = rimborso.DatiDaSerializzare.AltriCostiParcheggi?.Descrizione ?? DatiCalcolo.AltriCostiTreno.Descrizione, //prende il default
+            };
+            DatiCalcolo.AltriCostiHotel = new CalcoloRimborsoAltriCostiVM
+            {
+                Costo = rimborso.DatiDaSerializzare.AltriCostiHotel?.Costo ?? 0,
+                NumRicevute = rimborso.DatiDaSerializzare.AltriCostiHotel?.NumRicevute ?? 0,
+                Descrizione = rimborso.DatiDaSerializzare.AltriCostiHotel?.Descrizione ?? DatiCalcolo.AltriCostiTreno.Descrizione, //prende il default
+            };
         }
 
         public void AttachExcelExportAction(IWebHostEnvironment env, AnagraficaFilarmonica ana = null)

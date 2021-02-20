@@ -17,18 +17,21 @@
 <hr />
 @if (!string.IsNullOrEmpty(Model.MsgSuccess))
 {
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-    @Model.MsgSuccess
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @Model.MsgSuccess
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
 }
+
 <p>
-    <span class="fa fa-info"></span> Aggiungi la lista prove a cui ha partecipato, eventuali altri costi.
-    Premi il pulsante "Calcola" per avere un'anteprima del rimborso spesa. Premi il tasto "Salva" per salvare il rimborso spesa.
+    <span class="fa fa-info"></span>
+    Aggiungi la lista prove a cui ha partecipato, eventuali altri costi. <br />
+    Premi il pulsante "Calcola" per avere un'anteprima del rimborso spesa. Premi il tasto "Salva" per salvare il rimborso spesa. <br />
     Premi il tasto "Esporta" per ottenere il rimborso in excel.
 </p>
+
 <hr />
 
 <form method="post" asp-route="./Calcola">
@@ -131,6 +134,62 @@
                         <span asp-validation-for="DatiCalcolo.AltriCostiAltro.Costo" class="text-danger"></span>
                     </div>
                 </div>
+                <div class="form-row m-1">
+                    <div class="form-group col-md-4">
+                        <input asp-for="DatiCalcolo.AltriCostiVitto.Descrizione" class="form-control" readonly="readonly" />
+                        <span asp-validation-for="DatiCalcolo.AltriCostiVitto.Descrizione" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <input asp-for="DatiCalcolo.AltriCostiVitto.NumRicevute" class="form-control" />
+                        <span asp-validation-for="DatiCalcolo.AltriCostiVitto.NumRicevute" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <input asp-for="DatiCalcolo.AltriCostiVitto.Costo" class="form-control" />
+                        <span asp-validation-for="DatiCalcolo.AltriCostiVitto.Costo" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-row m-1">
+                    <div class="form-group col-md-4">
+                        <input asp-for="DatiCalcolo.AltriCostiMezziPubblici.Descrizione" class="form-control" readonly="readonly" />
+                        <span asp-validation-for="DatiCalcolo.AltriCostiMezziPubblici.Descrizione" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <input asp-for="DatiCalcolo.AltriCostiMezziPubblici.NumRicevute" class="form-control" />
+                        <span asp-validation-for="DatiCalcolo.AltriCostiMezziPubblici.NumRicevute" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <input asp-for="DatiCalcolo.AltriCostiMezziPubblici.Costo" class="form-control" />
+                        <span asp-validation-for="DatiCalcolo.AltriCostiMezziPubblici.Costo" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-row m-1">
+                    <div class="form-group col-md-4">
+                        <input asp-for="DatiCalcolo.AltriCostiParcheggi.Descrizione" class="form-control" readonly="readonly" />
+                        <span asp-validation-for="DatiCalcolo.AltriCostiParcheggi.Descrizione" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <input asp-for="DatiCalcolo.AltriCostiParcheggi.NumRicevute" class="form-control" />
+                        <span asp-validation-for="DatiCalcolo.AltriCostiParcheggi.NumRicevute" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <input asp-for="DatiCalcolo.AltriCostiParcheggi.Costo" class="form-control" />
+                        <span asp-validation-for="DatiCalcolo.AltriCostiParcheggi.Costo" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-row m-1">
+                    <div class="form-group col-md-4">
+                        <input asp-for="DatiCalcolo.AltriCostiHotel.Descrizione" class="form-control" readonly="readonly" />
+                        <span asp-validation-for="DatiCalcolo.AltriCostiHotel.Descrizione" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <input asp-for="DatiCalcolo.AltriCostiHotel.NumRicevute" class="form-control" />
+                        <span asp-validation-for="DatiCalcolo.AltriCostiHotel.NumRicevute" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <input asp-for="DatiCalcolo.AltriCostiHotel.Costo" class="form-control" />
+                        <span asp-validation-for="DatiCalcolo.AltriCostiHotel.Costo" class="text-danger"></span>
+                    </div>
+                </div>
             </fieldset>
 
 
@@ -186,7 +245,16 @@
         </div>
     </div>
 </form>
-
+<hr />
+<p>
+    <strong>Note sui rimborsi:</strong>
+    <ul>
+        <li>rimborso chilometrico dei viaggi, come da tabella ACI in base all’auto posseduta, considerando la distanza dal domicilio a dove deve essere fatta l’attività di volontariato, oltre alle altre spese documentate direttamente riferite ai viaggi (autostrada, parcheggio, etc);</li>
+        <li>rimborsi biglietti mezzi pubblici utilizzati per recarsi alla sede dell’Associazione o dove occorre per attività di volontariato inerenti l’Associazione stessa;</li>
+        <li>rimborsi pasti, opportunamente documentati, usufruiti per poter adempiere alla propria attività di volontariato inerenti l’Associazione stessa;</li>
+        <li>rimborso spese a fronte di una autocertificazione – resa ai sensi dell’art.46 del D.P.R. 28 dicembre 2000, n.445 – purchè non superino l’importo di € 10,00 giornalieri ed € 150,00 mensili, per attività riferite alla Scuola di Musica e alla manutenzione ordinaria della Sede dell’Associazione, compresa la pulizia dei locali e dell’esterno.</li>
+    </ul>
+</p>
 <script>
     (function () {
         const { ipcRenderer } = require("electron");
