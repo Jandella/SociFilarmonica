@@ -113,16 +113,49 @@ namespace SociFilarmonicaApp
 
                     var ws = p.Workbook.Worksheets.Add("Soci Filarmonica");
                     int riga = 1;
+                    //creo intestazione
+                    ws.Cells[riga, 1].Value = "Numero socio";
+                    ws.Cells[riga, 2].Value = "Tipologia socio";
+                    ws.Cells[riga, 3].Value = "Nome";
+                    ws.Cells[riga, 4].Value = "Cognome";
+                    ws.Cells[riga, 5].Value = "Indirizzo";
+                    ws.Cells[riga, 6].Value = "Cap";
+                    ws.Cells[riga, 7].Value = "Città";
+                    ws.Cells[riga, 8].Value = "Telefono";
+                    ws.Cells[riga, 9].Value = "Telefono 2";
+                    ws.Cells[riga, 10].Value = "Email";
+                    ws.Cells[riga, 11].Value = "Email 2";
+                    ws.Cells[riga, 12].Value = "Codice fiscale";
+                    ws.Cells[riga, 13].Value = "Numero tessera ambima";
+                    ws.Cells[riga, 14].Value = "Data di nascita";
+                    ws.Cells[riga, 15].Value = "Luogo di nascita";
+                    ws.Cells[riga, 16].Value = "Tipo auto";
+                    ws.Cells[riga, 17].Value = "Carburante";
+                    ws.Cells[riga, 18].Value = "Descrizione macchina";
+                    ws.Cells[riga, 19].Value = "Targa macchina";
+                    //metto i dati
+                    riga++;
                     foreach (var item in query)
                     {
-                        ws.Cells[riga, 1].Value = item.Nome;
-                        ws.Cells[riga, 2].Value = item.Cognome;
-                        ws.Cells[riga, 3].Value = item.Indirizzo;
-                        ws.Cells[riga, 4].Value = item.Telefono;
-                        ws.Cells[riga, 5].Value = item.Email;
-                        ws.Cells[riga, 6].Value = item.Tipologia?.Descrizione;
-                        ws.Cells[riga, 7].Value = item.DatiAuto?.TipoAuto;
-                        ws.Cells[riga, 8].Value = item.DatiAuto?.Carburante;
+                        ws.Cells[riga, 1].Value = item.NumeroSocio;
+                        ws.Cells[riga, 2].Value = item.Tipologia?.Descrizione;
+                        ws.Cells[riga, 3].Value = item.Nome;
+                        ws.Cells[riga, 4].Value = item.Cognome;
+                        ws.Cells[riga, 5].Value = item.Indirizzo;
+                        ws.Cells[riga, 6].Value = item.Cap;
+                        ws.Cells[riga, 7].Value = item.Citta;
+                        ws.Cells[riga, 8].Value = item.Telefono;
+                        ws.Cells[riga, 9].Value = item.Telefono2;
+                        ws.Cells[riga, 10].Value = item.Email;
+                        ws.Cells[riga, 11].Value = item.Email2;
+                        ws.Cells[riga, 12].Value = item.CodiceFiscale;
+                        ws.Cells[riga, 13].Value = item.NumeroTesseraAmbima;
+                        ws.Cells[riga, 14].Value = item.DataNascita;
+                        ws.Cells[riga, 15].Value = item.LuogoNascita;
+                        ws.Cells[riga, 16].Value = item.DatiAuto?.TipoAuto;
+                        ws.Cells[riga, 17].Value = item.DatiAuto?.Carburante;
+                        ws.Cells[riga, 18].Value = item.DescrizioneMacchina;
+                        ws.Cells[riga, 19].Value = item.TargaMacchina;
                         riga++;
                     }
 
